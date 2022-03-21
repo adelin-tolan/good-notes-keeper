@@ -2,7 +2,8 @@
   <v-app>
     <the-header />
     <div :class="{ 'home-page-background': !!(this.$route.path === '/') }">
-      <v-tabs class="tabs mx-auto my-4 pl-6" v-if="this.$route.path !== '/'">
+      <!-- isNotHomeRoute -->
+      <v-tabs class="tabs mx-auto my-4 pl-6" v-if="isNotHomeRoute">
         <v-tab to="/notes">Notes</v-tab>
         <v-tab to="/grocery-list">Grocery List</v-tab>
       </v-tabs>
@@ -21,6 +22,11 @@ export default {
   components: {
     TheHeader,
     TheFooter,
+  },
+  computed: {
+    isNotHomeRoute() {
+      return this.$route.path !== "/";
+    },
   },
 };
 </script>
