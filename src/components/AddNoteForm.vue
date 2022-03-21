@@ -75,7 +75,7 @@
       <v-btn @click="handleResetForm"> <strong> clear </strong> </v-btn>
     </v-form>
 
-    <v-overlay :value="isVisibleOverlay">
+    <v-overlay :value="isLoading">
       <v-progress-circular
         indeterminate
         color="green"
@@ -101,7 +101,7 @@ export default {
       isHighImportance: "",
       keyword: "",
       keywordsList: [],
-      isVisibleOverlay: false,
+      isLoading: false,
       titleRules: [
         (v) => v.length >= 3 || "Minimum length for title is 3 characters",
         (v) => v.length <= 20 || "Maximum length for title is 20 characters",
@@ -166,7 +166,7 @@ export default {
 
   async created() {
     try {
-      this.isVisibleOverlay = true;
+      this.isLoading = true;
       const response = await fetch(
         "https://mocki.io/v1/91c1cd99-8fe0-4eb2-8b42-82c1f940eb01"
       );
@@ -176,7 +176,7 @@ export default {
       console.error(err);
     } finally {
       setTimeout(() => {
-        this.isVisibleOverlay = false;
+        this.isLoading = false;
       }, 0);
     }
   },

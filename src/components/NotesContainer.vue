@@ -26,7 +26,7 @@
       >
       </add-note-form>
 
-      <v-overlay :value="isVisibleOverlay">
+      <v-overlay :value="isLoading">
         <v-progress-circular indeterminate size="64"></v-progress-circular>
       </v-overlay>
     </v-container>
@@ -53,7 +53,7 @@ export default {
       isHighImportance: false,
       noteKeyword: "",
       keywords: [],
-      isVisibleOverlay: false,
+      isLoading: false,
     };
   },
   methods: {
@@ -115,7 +115,7 @@ export default {
 
   async created() {
     try {
-      this.isVisibleOverlay = true;
+      this.isLoading = true;
       const response = await fetch(
         "https://mocki.io/v1/1c2ad75c-6989-4051-9d76-3aceb475d3d2"
       );
@@ -124,7 +124,7 @@ export default {
       console.error(err);
     } finally {
       setTimeout(() => {
-        this.isVisibleOverlay = false;
+        this.isLoading = false;
       }, 0);
     }
   },
