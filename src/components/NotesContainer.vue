@@ -1,31 +1,35 @@
 <template>
-  <div class="notes-container">
-    <note-item
-      v-for="(note, index) in sortedNotesList"
-      :noteTitle="note.noteTitle"
-      :noteContent="note.noteContent"
-      :noteAuthor="note.noteAuthor"
-      :noteDateCreated="dateFormat(note.noteDateCreated)"
-      :isHighImportance="note.isHighImportance"
-      :keywords="note.keywords"
-      :key="index"
-    ></note-item>
+  <div>
+    <v-container>
+      <v-row>
+        <note-item
+          v-for="(note, index) in sortedNotesList"
+          :noteTitle="note.noteTitle"
+          :noteContent="note.noteContent"
+          :noteAuthor="note.noteAuthor"
+          :noteDateCreated="formatDate(note.noteDateCreated)"
+          :isHighImportance="note.isHighImportance"
+          :keywords="note.keywords"
+          :key="index"
+        ></note-item>
+      </v-row>
 
-    <v-btn color="success" dark @click="showHideForm" class="my-6">
-      {{ formVisibility ? "Hide form" : "Add note" }}
-    </v-btn>
+      <v-btn color="success" dark @click="showHideForm" class="my-6">
+        {{ isVisibleForm ? "Hide form" : "Add note" }}
+      </v-btn>
 
-    <add-note-form
-      v-if="formVisibility"
-      @on-click-add-keyword="addKeyword"
-      @on-click-add-node="addNewNote"
-      @on-click-reset="resetForm"
-    >
-    </add-note-form>
+      <add-note-form
+        v-if="isVisibleForm"
+        @on-click-add-keyword="addKeyword"
+        @on-click-add-node="addNewNote"
+        @on-click-reset="resetForm"
+      >
+      </add-note-form>
 
-    <v-overlay :value="overlay">
-      <v-progress-circular indeterminate size="64"></v-progress-circular>
-    </v-overlay>
+      <v-overlay :value="isVisibleOverlay">
+        <v-progress-circular indeterminate size="64"></v-progress-circular>
+      </v-overlay>
+    </v-container>
   </div>
 </template>
 
@@ -42,36 +46,38 @@ export default {
   data() {
     return {
       notesList: [],
-      formVisibility: false,
+      isVisibleForm: false,
       noteTitle: "",
       noteContent: "",
       noteAuthor: "",
       isHighImportance: false,
       noteKeyword: "",
       keywords: [],
-      overlay: false,
+      isVisibleOverlay: false,
     };
   },
   methods: {
-    pad(el) {
+    addPadStart(el) {
       return String(el).padStart(2, 0);
     },
-    newDate() {
+    currentDate() {
       const d = new Date();
-      return `${d.getFullYear()}-${this.pad(d.getDate())}-${this.pad(
-        d.getMonth() + 1
-      )}T${this.pad(d.getHours())}:${this.pad(d.getMinutes())}:${this.pad(
+      return `${d.getFullYear()}-${this.addPadStart(
+        d.getDate()
+      )}-${this.addPadStart(d.getMonth() + 1)}T${this.addPadStart(
+        d.getHours()
+      )}:${this.addPadStart(d.getMinutes())}:${this.addPadStart(
         d.getSeconds()
       )}`;
     },
 
-    dateFormat(date) {
+    formatDate(date) {
       const d = date.split("T");
       const d0 = d[0].split("-");
       return `${d0[1]}/${d0[2]}/${d0[0]}, ${d[1]}`;
     },
     showHideForm() {
-      this.formVisibility = !this.formVisibility;
+      this.isVisibleForm = !this.isVisibleForm;
     },
     addKeyword(keyword) {
       this.keywords.push(keyword);
@@ -90,7 +96,7 @@ export default {
         noteTitle: title || "empty",
         noteContent: content || "empty",
         noteAuthor: author || "empty",
-        noteDateCreated: this.newDate(),
+        noteDateCreated: this.currentDate(),
         isHighImportance: Boolean(isHighImportance),
         keywords: keywordsList,
       });
@@ -109,7 +115,7 @@ export default {
 
   async created() {
     try {
-      this.overlay = true;
+      this.isVisibleOverlay = true;
       const response = await fetch(
         "https://mocki.io/v1/1c2ad75c-6989-4051-9d76-3aceb475d3d2"
       );
@@ -118,11 +124,9 @@ export default {
       console.error(err);
     } finally {
       setTimeout(() => {
-        this.overlay = false;
+        this.isVisibleOverlay = false;
       }, 0);
     }
   },
 };
 </script>
-
-<style lang="css" scoped></style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="home-page">
-    <v-container fluid class="align-center container">
+  <div>
+    <v-container fluid class="container">
       <v-row justify="center">
         <router-link to="/notes">
           <v-card tile class="card">
@@ -26,9 +26,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.home-page {
-  background: lightgrey;
-}
 .container {
   min-height: 78vh;
   display: flex;
@@ -41,5 +38,9 @@ export default {
   justify-content: center;
   align-items: center;
   margin: 2rem;
+}
+
+a {
+  text-decoration: none;
 }
 </style>

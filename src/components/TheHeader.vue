@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-container fixed fluid class="px-0 py-0">
-      <v-app-bar color="success accent-4" dark class="py-2">
-        <v-row style="max-width: 600px" class="mx-auto">
+    <v-app-bar color="success accent-4" dark class="py-2">
+      <v-container fixed fluid class="px-0 py-0">
+        <v-row class="header-row mx-auto">
           <router-link to="/">
             <v-img
               max-height="40"
@@ -12,24 +12,33 @@
           </router-link>
 
           <v-spacer></v-spacer>
-          <router-link to="/">
-            <v-toolbar-title>Adelin's Notes Keeper</v-toolbar-title>
-          </router-link>
+          <v-toolbar-title @click="handleHomeRouterLink"
+            >Adelin's Notes Keeper</v-toolbar-title
+          >
           <v-spacer></v-spacer>
 
           <v-btn icon>
             <v-icon>mdi-logout</v-icon>
           </v-btn>
         </v-row>
-      </v-app-bar>
-    </v-container>
+      </v-container>
+    </v-app-bar>
   </div>
 </template>
 
 <script>
 export default {
   name: "TheHeader",
+  methods: {
+    handleHomeRouterLink() {
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.header-row {
+  max-width: 1170px;
+}
+</style>

@@ -1,7 +1,13 @@
 <template>
   <v-app>
     <the-header />
-    <router-view class="main-display mx-auto py-6"></router-view>
+    <div :class="{ 'home-page-background': !!(this.$route.path === '/') }">
+      <v-tabs class="tabs mx-auto my-4 pl-6" v-if="this.$route.path !== '/'">
+        <v-tab to="/notes">Notes</v-tab>
+        <v-tab to="/grocery-list">Grocery List</v-tab>
+      </v-tabs>
+      <router-view class="main-display py-6 mx-auto"></router-view>
+    </div>
     <the-footer />
   </v-app>
 </template>
@@ -26,13 +32,17 @@ export default {
   box-sizing: border-box;
 }
 
-.main-display {
+.main-display,
+.tabs {
   width: 100%;
-  max-width: 600px !important;
+  max-width: 1170px !important;
+}
+
+.main-display {
   min-height: 635px;
 }
 
-router-link {
-  text-decoration: none;
+.home-page-background {
+  background: lightgrey !important;
 }
 </style>

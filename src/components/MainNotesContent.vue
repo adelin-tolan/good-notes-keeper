@@ -1,5 +1,5 @@
 <template>
-  <div class="notes-big-container">
+  <div class="container">
     <notes-container></notes-container>
   </div>
 </template>
@@ -16,8 +16,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.notes-big-container {
+.container {
   min-height: 80vh;
-  /* margin: 30px 0; */
 }
 </style>

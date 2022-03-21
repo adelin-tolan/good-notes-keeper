@@ -12,10 +12,6 @@ Vue.use(VueRouter);
 
 Vue.config.productionTip = false
 
-// const HomePage = {template: '<div>Homepage</div>'}
-// const NotesPage = {template: '<div>Notes page</div>'}
-// const GroceryList = {template: '<div>Grocery list</div>'}
-
 
  const routes = [
    {path: '/', name: 'Homepage', component: HomePage},

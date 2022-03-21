@@ -1,21 +1,23 @@
 <template>
-  <v-card class="mx-auto my-2" elevation="2" outlined>
-    <v-card-text>
-      <p class="text-h6 text--primary">{{ noteTitle }}</p>
-      <div class="text--primary">
-        {{ noteContent }}
-      </div>
-      <div>
-        <span>{{ noteAuthor }}</span>
-        <span>{{ noteDateCreated }}</span>
-        <span>
-          <v-icon v-if="isHighImportance"> mdi-file-alert </v-icon>
-          <v-icon v-else> mdi-file </v-icon>
-        </span>
-        <span>Keywords: {{ joinKeywords }}.</span>
-      </div>
-    </v-card-text>
-  </v-card>
+  <v-col cols="12" sm="6">
+    <v-card class="mx-auto my-2" elevation="2" outlined>
+      <v-card-text>
+        <p class="text-h6 text--primary">{{ noteTitle }}</p>
+        <div class="text--primary">
+          {{ noteContent }}
+        </div>
+        <div>
+          <span>{{ noteAuthor }}</span>
+          <span>{{ noteDateCreated }}</span>
+          <span>
+            <v-icon v-if="isHighImportance"> mdi-file-alert </v-icon>
+            <v-icon v-else> mdi-file </v-icon>
+          </span>
+          <span v-if="joinedKeywords">Keywords: {{ joinedKeywords }}.</span>
+        </div>
+      </v-card-text>
+    </v-card>
+  </v-col>
 </template>
 
 <script>
@@ -48,7 +50,7 @@ export default {
     },
   },
   computed: {
-    joinKeywords() {
+    joinedKeywords() {
       return this.keywords.join(", ");
     },
   },
