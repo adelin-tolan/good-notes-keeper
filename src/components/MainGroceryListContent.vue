@@ -25,20 +25,20 @@ export default {
     return {
       headers: [
         {
-          text: "Product",
+          text: this.$t("message.table.header.product"),
           align: "start",
           value: "name",
         },
         {
-          text: "Quantity",
+          text: this.$t("message.table.header.quantity"),
           value: "quantity",
         },
         {
-          text: "Unit",
+          text: this.$t("message.table.header.unit"),
           value: "unitMeasure",
         },
         {
-          text: "Purchased",
+          text: this.$t("message.table.header.purchased"),
           value: "isPurchased",
         },
       ],

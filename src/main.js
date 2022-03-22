@@ -2,13 +2,17 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
+import VueI18n from 'vue-i18n'
 
 import HomePage from '../src/components/HomePage'
 import MainNotesContent from '../src/components/MainNotesContent'
 import MainGroceryListContent from '../src/components/MainGroceryListContent'
 
+import {englishVersion} from "./locales/en.js"
+
 
 Vue.use(VueRouter);
+Vue.use(VueI18n);
 
 Vue.config.productionTip = false
 
@@ -22,9 +26,17 @@ Vue.config.productionTip = false
 
   const router = new VueRouter({routes, base: '/', mode: 'history'})
 
+  const messages = {
+    locale: englishVersion
+  }
 
+
+  const i18n = new VueI18n({
+    locale: 'locale',
+    messages,
+  })
 
 new Vue({
-  vuetify, router,
+  vuetify, router, i18n,
   render: h => h(App)
 }).$mount('#app')

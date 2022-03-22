@@ -12,9 +12,9 @@
           </router-link>
 
           <v-spacer></v-spacer>
-          <v-toolbar-title @click="handleHomeRouterLink"
-            >Adelin's Notes Keeper</v-toolbar-title
-          >
+          <v-toolbar-title @click="handleHomeRouterLink">{{
+            $t("message.main.appTitle")
+          }}</v-toolbar-title>
           <v-spacer></v-spacer>
 
           <v-btn icon>

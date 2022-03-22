@@ -8,7 +8,7 @@
             :rules="titleRules"
             :error-messages="titleErrors"
             :counter="20"
-            label="Title"
+            :label="$t('message.form.title')"
             required
           ></v-text-field>
 
@@ -16,7 +16,7 @@
             v-model="author"
             :rules="authorRules"
             :items="authors"
-            label="Author"
+            :label="$t('message.form.author')"
             dense
           ></v-select>
         </v-col>
@@ -27,7 +27,7 @@
             :counter="200"
             clearable
             clear-icon="mdi-close-circle"
-            label="Content"
+            :label="$t('message.form.content')"
           ></v-textarea>
         </v-col>
       </v-row>
@@ -35,13 +35,21 @@
       <v-row>
         <v-col cols="12" sm="6">
           <v-radio-group v-model="isHighImportance">
-            <div>Is this note important?</div>
-            <v-radio value="1" label="yes"> </v-radio>
-            <v-radio value="" label="no"> </v-radio>
+            <div>{{ $t("message.form.texts.text1") }}</div>
+            <v-radio
+              value="1"
+              :label="$t(`message.form.radioButtons.trueValue`)"
+            >
+            </v-radio>
+            <v-radio
+              value=""
+              :label="$t('message.form.radioButtons.falseValue')"
+            >
+            </v-radio>
           </v-radio-group>
         </v-col>
         <v-col cols="12" sm="6">
-          <div>Add keywors one by one:</div>
+          <div>{{ $t("message.form.texts.text2") }}</div>
           <v-text-field
             v-model="keyword"
             :rules="keywordsRules"
@@ -55,10 +63,10 @@
             @click.prevent="handleAddKeywordClick"
             :disabled="isAddKeywordsButtonDisabled"
           >
-            Add new keyword
+            {{ $t("message.form.buttons.addNewKeyword") }}
           </v-btn>
           <div v-if="joinKeywords !== ''" class="mt-3">
-            Keywords added: {{ joinKeywords }}.
+            {{ $t("message.form.texts.text3") }} {{ joinKeywords }}.
           </div>
         </v-col>
       </v-row>
@@ -70,9 +78,11 @@
         @click.prevent="handleAddNewNote"
         :disabled="!isValidForm"
       >
-        <strong>submit</strong>
+        <strong>{{ $t("message.form.buttons.submit") }}</strong>
       </v-btn>
-      <v-btn @click="handleResetForm"> <strong> clear </strong> </v-btn>
+      <v-btn @click="handleResetForm">
+        <strong> {{ $t("message.form.buttons.clear") }} </strong>
+      </v-btn>
     </v-form>
 
     <v-overlay :value="isLoading">

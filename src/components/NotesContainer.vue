@@ -15,7 +15,11 @@
       </v-row>
 
       <v-btn color="success" dark @click="showHideForm" class="my-6">
-        {{ isVisibleForm ? "Hide form" : "Add note" }}
+        {{
+          isVisibleForm
+            ? $t("message.buttons.hideForm")
+            : $t("message.buttons.addNote")
+        }}
       </v-btn>
 
       <add-note-form

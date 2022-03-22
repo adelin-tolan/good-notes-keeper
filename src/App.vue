@@ -1,11 +1,10 @@
 <template>
   <v-app>
     <the-header />
-    <div :class="{ 'home-page-background': !!(this.$route.path === '/') }">
-      <!-- isNotHomeRoute -->
+    <div :class="{ 'home-page-background': !isNotHomeRoute }">
       <v-tabs class="tabs mx-auto my-4 pl-6" v-if="isNotHomeRoute">
-        <v-tab to="/notes">Notes</v-tab>
-        <v-tab to="/grocery-list">Grocery List</v-tab>
+        <v-tab to="/notes">{{ $t("message.features.feature1") }}</v-tab>
+        <v-tab to="/grocery-list">{{ $t("message.features.feature2") }}</v-tab>
       </v-tabs>
       <router-view class="main-display py-6 mx-auto"></router-view>
     </div>

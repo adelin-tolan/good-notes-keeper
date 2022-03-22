@@ -4,13 +4,17 @@
       <v-row justify="center">
         <router-link to="/notes">
           <v-card tile class="card">
-            <v-card-title class="text-capitalize"> Notes </v-card-title>
+            <v-card-title class="text-capitalize">
+              {{ $t("message.features.feature1") }}
+            </v-card-title>
           </v-card>
         </router-link>
 
         <router-link to="/grocery-list">
           <v-card tile class="card">
-            <v-card-title class="text-capitalize"> Grocery List </v-card-title>
+            <v-card-title class="text-capitalize">
+              {{ $t("message.features.feature2") }}
+            </v-card-title>
           </v-card>
         </router-link>
       </v-row>
