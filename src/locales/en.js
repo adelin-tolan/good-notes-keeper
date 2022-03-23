@@ -36,6 +36,11 @@ export const englishVersion = {
             product: "Product",
             quantity: "Quantity",
             unit: "Unit",
+            purchased: "Purchased",
+            actions: "Actions"
+          },
+          editTabelDialog: {
+            title: "Edit Grocery List",
             purchased: "Purchased"
           }
         }
