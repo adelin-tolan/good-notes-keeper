@@ -157,10 +157,6 @@ export default {
     resetValues() {
       this.$emit("on-click-reset");
     },
-    emTitle(event) {
-      console.log(event);
-      this.$emit("update:title", event.target.value);
-    },
   },
   computed: {
     joinKeywords() {
