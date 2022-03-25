@@ -35,7 +35,7 @@
       <v-row>
         <v-col cols="12" sm="6">
           <v-radio-group v-model="isHighImportance">
-            <div>{{ $t("message.form.texts.text1") }}</div>
+            <div>{{ $t("message.form.texts.noteImportanceText") }}</div>
             <v-radio
               value="1"
               :label="$t(`message.form.radioButtons.trueValue`)"
@@ -49,7 +49,7 @@
           </v-radio-group>
         </v-col>
         <v-col cols="12" sm="6">
-          <div>{{ $t("message.form.texts.text2") }}</div>
+          <div>{{ $t("message.form.texts.addKeywordsText") }}</div>
           <v-text-field
             v-model="keyword"
             :rules="keywordsRules"
@@ -66,7 +66,7 @@
             {{ $t("message.form.buttons.addNewKeyword") }}
           </v-btn>
           <div v-if="joinKeywords !== ''" class="mt-3">
-            {{ $t("message.form.texts.text3") }} {{ joinKeywords }}.
+            {{ $t("message.form.texts.keywordsAddedText") }} {{ joinKeywords }}.
           </div>
         </v-col>
       </v-row>
@@ -97,6 +97,8 @@
 </template>
 
 <script>
+import { bus } from "../main";
+
 export default {
   name: "AddNoteForm",
   components: {},
@@ -178,8 +180,10 @@ export default {
       );
       const authorsList = await response.json();
       this.authors = authorsList.map((item) => item.name);
+      bus.$emit("api_success", "The initial name list has been loaded");
     } catch (err) {
       console.error(err);
+      bus.$emit("api_error", err.message);
     } finally {
       setTimeout(() => {
         this.isLoading = false;

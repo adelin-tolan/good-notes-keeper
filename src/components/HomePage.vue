@@ -5,7 +5,7 @@
         <router-link to="/notes">
           <v-card tile class="card">
             <v-card-title class="text-capitalize">
-              {{ $t("message.features.feature1") }}
+              {{ $t("message.features.notes") }}
             </v-card-title>
           </v-card>
         </router-link>
@@ -13,7 +13,7 @@
         <router-link to="/grocery-list">
           <v-card tile class="card">
             <v-card-title class="text-capitalize">
-              {{ $t("message.features.feature2") }}
+              {{ $t("message.features.groceryList") }}
             </v-card-title>
           </v-card>
         </router-link>

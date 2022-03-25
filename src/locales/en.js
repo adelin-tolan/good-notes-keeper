@@ -4,8 +4,8 @@ export const englishVersion = {
           appTitle: "Adelin's Notes Keeper"
         },
         features: {
-          feature1: "notes",
-          feature2: "grocery list"
+          notes: "notes",
+          groceryList: "grocery list"
         },
         buttons: {
           hideForm: "Hide form",
@@ -26,9 +26,9 @@ export const englishVersion = {
             clear: "clear"
           },
           texts: {
-            text1: "Is this note important?",
-            text2: "Add keywors one by one:",
-            text3: "Keywords added:"
+            noteImportanceText: "Is this note important?",
+            addKeywordsText: "Add keywors one by one:",
+            keywordsAddedText: "Keywords added:"
           }
         },
         table: {

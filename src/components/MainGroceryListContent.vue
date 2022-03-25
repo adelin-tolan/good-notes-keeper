@@ -33,6 +33,7 @@
 
 <script>
 import EditGroceryListDialog from "./EditGroceryListDialog.vue";
+import { bus } from "../main";
 
 export default {
   name: "MainGroceryListContent",
@@ -80,6 +81,8 @@ export default {
     handleDialogSave(newProdValues) {
       newProdValues.id = this.itemToEdit.id;
       this.groceryList.splice(this.indexOfElToEdit, 1, newProdValues);
+      console.log(newProdValues);
+
       this.isDialogOpen = false;
     },
   },
@@ -90,8 +93,10 @@ export default {
         "https://mocki.io/v1/4a100cdb-3497-45d4-94b5-5c0e7cd951db"
       );
       this.groceryList = await response.json();
+      bus.$emit("api_success", "The initial grocery list has been loaded");
     } catch (err) {
       console.error(err);
+      bus.$emit("api_error", err.message);
     }
   },
 

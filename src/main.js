@@ -11,11 +11,13 @@ import MainGroceryListContent from '../src/components/MainGroceryListContent'
 import {englishVersion} from "./locales/en.js"
 
 
-Vue.use(VueRouter);
-Vue.use(VueI18n);
-
 Vue.config.productionTip = false
 
+
+// Router
+
+Vue.use(VueRouter);
+Vue.use(VueI18n);
 
  const routes = [
    {path: '/', name: 'Homepage', component: HomePage},
@@ -26,15 +28,21 @@ Vue.config.productionTip = false
 
   const router = new VueRouter({routes, base: '/', mode: 'history'})
 
+
+// i18n
+
   const messages = {
     locale: englishVersion
   }
-
 
   const i18n = new VueI18n({
     locale: 'locale',
     messages,
   })
+
+
+export const bus = new Vue();
+
 
 new Vue({
   vuetify, router, i18n,

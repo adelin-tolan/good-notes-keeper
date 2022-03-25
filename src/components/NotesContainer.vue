@@ -40,6 +40,7 @@
 <script>
 import NoteItem from "./NoteItem.vue";
 import AddNoteForm from "./AddNoteForm.vue";
+import { bus } from "../main";
 
 export default {
   name: "NotesContainer",
@@ -124,8 +125,10 @@ export default {
         "https://mocki.io/v1/1c2ad75c-6989-4051-9d76-3aceb475d3d2"
       );
       this.notesList = await response.json();
+      bus.$emit("api_success", "The initial notes list has been loaded");
     } catch (err) {
       console.error(err);
+      bus.$emit("api_error", err.message);
     } finally {
       setTimeout(() => {
         this.isLoading = false;
