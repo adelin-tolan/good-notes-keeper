@@ -4,9 +4,10 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import VueI18n from 'vue-i18n'
 
-import HomePage from '../src/components/HomePage'
-import MainNotesContent from '../src/components/MainNotesContent'
-import MainGroceryListContent from '../src/components/MainGroceryListContent'
+import HomePage from './views/HomePage'
+import MainNotesContent from './views/MainNotesContent'
+import MainGroceryListContent from './views/MainGroceryListContent'
+import GroceryItem from './views/GroceryItem'
 
 import {englishVersion} from "./locales/en.js"
 
@@ -22,11 +23,12 @@ Vue.use(VueI18n);
 
  const routes = [
    {path: '/', name: 'Homepage', component: HomePage},
-   {path: '/notes', name: 'Notes', component: MainNotesContent},
+   {path: '/notes', name: 'Notes', component: MainNotesContent}, 
    {path: '/grocery-list', name: 'Grocery List', component: MainGroceryListContent},  
+   {path: '/grocery-list/:groceryItemId', name: 'Grocery Item', component: GroceryItem},
   ]
 
-  const router = new VueRouter({routes, base: '/', mode: 'history'})
+  export const router = new VueRouter({routes, base: '/', mode: 'history'})
 
 
 // i18n

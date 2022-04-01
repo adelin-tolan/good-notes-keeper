@@ -6,6 +6,13 @@
       :items-per-page="10"
       class="elevation-1 my-6 mx-6"
     >
+      <template #[`item.name`]="{ item }">
+        <router-link
+          :to="{ name: 'Grocery Item', params: { groceryItemId: item.id } }"
+          >{{ item.name }}
+        </router-link>
+      </template>
+
       <template #[`item.isPurchased`]="{ item }">
         <v-icon
           size="24px"
@@ -32,7 +39,7 @@
 </template>
 
 <script>
-import EditGroceryListDialog from "./EditGroceryListDialog.vue";
+import EditGroceryListDialog from "../components/EditGroceryListDialog.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {

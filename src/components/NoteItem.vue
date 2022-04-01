@@ -1,6 +1,6 @@
 <template>
   <v-col cols="12" sm="6" class="d-flex align-stretch">
-    <v-card class="mx-auto my-2" elevation="2" outlined>
+    <v-card style="width: 100%" elevation="2" outlined>
       <v-card-text>
         <p class="text-h6 text--primary">{{ noteTitle }}</p>
         <div class="text--primary">
@@ -49,6 +49,7 @@ export default {
       required: true,
     },
   },
+
   computed: {
     joinedKeywords() {
       return this.keywords.join(", ");

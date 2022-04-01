@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import NotesContainer from "./NotesContainer.vue";
+import NotesContainer from "../components/NotesContainer.vue";
 
 export default {
   name: "MainNotesContent",
