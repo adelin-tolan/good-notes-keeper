@@ -33,7 +33,7 @@
 
 <script>
 import EditGroceryListDialog from "./EditGroceryListDialog.vue";
-import { bus } from "../main";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "MainGroceryListContent",
@@ -62,18 +62,20 @@ export default {
         },
         { text: this.$t("message.table.header.actions"), value: "actions" },
       ],
-      groceryList: [],
       isDialogOpen: false,
       itemToEdit: {},
       indexOfElToEdit: 0,
     };
   },
   methods: {
+    ...mapActions(["FETCH_GROCERY_LIST"]),
+
     handleEditItem(item) {
       this.indexOfElToEdit = this.groceryList.indexOf(item);
       this.itemToEdit = { ...item };
       this.isDialogOpen = true;
     },
+
     handleDialogClose() {
       this.isDialogOpen = false;
     },
@@ -81,25 +83,32 @@ export default {
     handleDialogSave(newProdValues) {
       newProdValues.id = this.itemToEdit.id;
       this.groceryList.splice(this.indexOfElToEdit, 1, newProdValues);
-      console.log(newProdValues);
-
       this.isDialogOpen = false;
     },
   },
 
-  async created() {
-    try {
-      const response = await fetch(
-        "https://mocki.io/v1/4a100cdb-3497-45d4-94b5-5c0e7cd951db"
-      );
-      this.groceryList = await response.json();
-      bus.$emit("api_success", "The initial grocery list has been loaded");
-    } catch (err) {
-      console.error(err);
-      bus.$emit("api_error", err.message);
-    }
+  computed: {
+    ...mapGetters(["groceryList"]),
   },
 
-  beforeUpdate: {},
+  created() {
+    this.FETCH_GROCERY_LIST();
+  },
 };
 </script>
+
+<style lang="scss" scoped>
+::v-deep thead th {
+  background: green;
+  &:first-child {
+    border-radius: 5px 0 0;
+  }
+  &:last-child {
+    border-radius: 0 5px 0 0;
+  }
+
+  span {
+    color: white;
+  }
+}
+</style>

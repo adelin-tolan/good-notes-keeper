@@ -29,22 +29,32 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+$text-decoration: none;
+$text-decoration-hover: underline green;
+$bg-color: rgba(255, 255, 255, 1);
+$bg-color-hover: rgba(255, 255, 255, 0.7);
+
 .container {
   min-height: 78vh;
   display: flex;
   align-items: center;
 }
-.card {
-  width: 320px;
-  height: 112px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem;
-}
-
 a {
-  text-decoration: none;
+  text-decoration: $text-decoration;
+  .card {
+    width: 320px;
+    height: 112px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+    &:hover {
+      background: $bg-color-hover;
+    }
+  }
+  &:hover {
+    text-decoration: $text-decoration-hover;
+  }
 }
 </style>

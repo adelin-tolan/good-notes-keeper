@@ -64,7 +64,9 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="scss">
+$home-page-bg-color: lightgrey;
+
 * {
   margin: 0;
   padding: 0;
@@ -82,6 +84,6 @@ export default {
 }
 
 .home-page-background {
-  background: lightgrey !important;
+  background: $home-page-bg-color !important;
 }
 </style>

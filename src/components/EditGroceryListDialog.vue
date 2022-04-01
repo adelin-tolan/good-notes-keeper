@@ -133,7 +133,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .v-btn--outlined {
   border: 2px solid #43a047 !important;
   text-transform: capitalize;

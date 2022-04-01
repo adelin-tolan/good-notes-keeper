@@ -41,6 +41,7 @@
 import NoteItem from "./NoteItem.vue";
 import AddNoteForm from "./AddNoteForm.vue";
 import { bus } from "../main";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "NotesContainer",
@@ -50,7 +51,6 @@ export default {
   },
   data() {
     return {
-      notesList: [],
       isVisibleForm: false,
       noteTitle: "",
       noteContent: "",
@@ -62,6 +62,8 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["FETCH_NOTES_LIST"]),
+
     addPadStart(el) {
       return String(el).padStart(2, 0);
     },
@@ -110,21 +112,17 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["notesList"]),
+
     sortedNotesList() {
-      const sortedNotesList = [...this.notesList];
-      return sortedNotesList.sort(
-        (a, b) => b.isHighImportance - a.isHighImportance
-      );
+      return this.$store.getters.sortedNotesList;
     },
   },
 
-  async created() {
+  created() {
     try {
       this.isLoading = true;
-      const response = await fetch(
-        "https://mocki.io/v1/1c2ad75c-6989-4051-9d76-3aceb475d3d2"
-      );
-      this.notesList = await response.json();
+      this.FETCH_NOTES_LIST();
       bus.$emit("api_success", "The initial notes list has been loaded");
     } catch (err) {
       console.error(err);

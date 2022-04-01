@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="12" sm="6">
+  <v-col cols="12" sm="6" class="d-flex align-stretch">
     <v-card class="mx-auto my-2" elevation="2" outlined>
       <v-card-text>
         <p class="text-h6 text--primary">{{ noteTitle }}</p>
@@ -57,9 +57,16 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
-span {
-  display: inline-block;
-  margin-right: 10px;
+<style lang="scss" scoped>
+.v-card__text {
+  .text-h6 {
+    &:hover {
+      color: rgba(0, 0, 0, 0.6) !important;
+    }
+  }
+  span {
+    display: inline-block;
+    margin-right: 10px;
+  }
 }
 </style>

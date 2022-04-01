@@ -160,6 +160,7 @@ export default {
       this.$emit("on-click-reset");
     },
   },
+
   computed: {
     joinKeywords() {
       return this.keywordsList.join(", ");

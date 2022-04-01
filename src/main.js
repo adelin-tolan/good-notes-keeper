@@ -10,20 +10,20 @@ import MainGroceryListContent from '../src/components/MainGroceryListContent'
 
 import {englishVersion} from "./locales/en.js"
 
+import {store} from './store/store'
 
 Vue.config.productionTip = false
-
-
-// Router
 
 Vue.use(VueRouter);
 Vue.use(VueI18n);
 
+
+// Router
+
  const routes = [
    {path: '/', name: 'Homepage', component: HomePage},
    {path: '/notes', name: 'Notes', component: MainNotesContent},
-   {path: '/grocery-list', name: 'Grocery List', component: MainGroceryListContent},
-  
+   {path: '/grocery-list', name: 'Grocery List', component: MainGroceryListContent},  
   ]
 
   const router = new VueRouter({routes, base: '/', mode: 'history'})
@@ -41,10 +41,15 @@ Vue.use(VueI18n);
   })
 
 
+
+// EventBus 
+
 export const bus = new Vue();
 
 
+
+
 new Vue({
-  vuetify, router, i18n,
+  vuetify, router, i18n, store,
   render: h => h(App)
 }).$mount('#app')
