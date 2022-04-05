@@ -11,7 +11,12 @@ import GroceryItem from './views/GroceryItem'
 
 import {englishVersion} from "./locales/en.js"
 
-import {store} from './store/store'
+import { createPinia, PiniaVuePlugin } from 'pinia'
+
+
+Vue.use(PiniaVuePlugin)
+const pinia = createPinia()
+
 
 Vue.config.productionTip = false
 
@@ -50,8 +55,7 @@ export const bus = new Vue();
 
 
 
-
 new Vue({
-  vuetify, router, i18n, store,
+  vuetify, router, i18n, pinia,
   render: h => h(App)
 }).$mount('#app')

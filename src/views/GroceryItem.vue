@@ -10,13 +10,14 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "pinia";
+import { useGroceryList } from "@/stores/GroceryStore";
 
 export default {
   name: "GroceryItem",
 
   computed: {
-    ...mapGetters(["groceryList"]),
+    ...mapState(useGroceryList, ["groceryList"]),
     currentRouteId() {
       return this.$route.params.groceryItemId;
     },

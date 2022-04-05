@@ -41,7 +41,8 @@
 import NoteItem from "./NoteItem.vue";
 import AddNoteForm from "./AddNoteForm.vue";
 import { bus } from "../main";
-import { mapActions, mapGetters } from "vuex";
+import { useNotesList } from "../stores/NotesStore";
+import { mapState, mapActions } from "pinia";
 
 export default {
   name: "NotesContainer",
@@ -62,7 +63,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["FETCH_NOTES_LIST"]),
+    ...mapActions(useNotesList, ["fetchNotesList"]),
 
     addPadStart(el) {
       return String(el).padStart(2, 0);
@@ -112,17 +113,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["notesList"]),
-
-    sortedNotesList() {
-      return this.$store.getters.sortedNotesList;
-    },
+    ...mapState(useNotesList, ["notesList", "sortedNotesList"]),
   },
 
   created() {
     try {
       this.isLoading = true;
-      this.FETCH_NOTES_LIST();
+      this.fetchNotesList();
       bus.$emit("api_success", "The initial notes list has been loaded");
     } catch (err) {
       console.error(err);

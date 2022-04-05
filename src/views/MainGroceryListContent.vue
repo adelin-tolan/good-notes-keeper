@@ -40,7 +40,8 @@
 
 <script>
 import EditGroceryListDialog from "../components/EditGroceryListDialog.vue";
-import { mapGetters, mapActions } from "vuex";
+import { useGroceryList } from "../stores/GroceryStore";
+import { mapState, mapActions } from "pinia";
 
 export default {
   name: "MainGroceryListContent",
@@ -74,8 +75,9 @@ export default {
       indexOfElToEdit: 0,
     };
   },
+
   methods: {
-    ...mapActions(["FETCH_GROCERY_LIST"]),
+    ...mapActions(useGroceryList, ["fetchGroceryList"]),
 
     handleEditItem(item) {
       this.indexOfElToEdit = this.groceryList.indexOf(item);
@@ -95,11 +97,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["groceryList"]),
+    ...mapState(useGroceryList, ["groceryList"]),
   },
 
   created() {
-    this.FETCH_GROCERY_LIST();
+    this.fetchGroceryList();
   },
 };
 </script>
