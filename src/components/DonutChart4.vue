@@ -23,13 +23,10 @@ export default {
 
   methods: {
     renderChart() {
-      // Create chart instance
       chart = am4core.create(this.$refs.chart4, am4charts.PieChart);
 
-      // Add data
       chart.data = this.chartData;
 
-      // Add and configure Series
       let pieSeries = chart.series.push(new am4charts.PieSeries());
       pieSeries.dataFields.value = "value";
       pieSeries.dataFields.category = "category";
@@ -37,11 +34,9 @@ export default {
       pieSeries.slices.template.stroke = am4core.color("#fff");
       pieSeries.slices.template.strokeWidth = 1;
 
-      // Add a legend
       chart.legend = new am4charts.Legend();
       chart.legend.position = "right";
 
-      // Disable labels and ticks
       pieSeries.labels.template.disabled = true;
       pieSeries.ticks.template.disabled = true;
     },

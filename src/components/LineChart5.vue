@@ -28,7 +28,6 @@ export default {
 
       let chart = root.container.children.push(
         am5xy.XYChart.new(root, {
-          // panY: false,
           panY: true,
           panX: true,
           wheelX: "panX",
@@ -40,22 +39,12 @@ export default {
 
       let data = this.chartData;
 
-      // Create Y-axis
       let yAxis = chart.yAxes.push(
         am5xy.ValueAxis.new(root, {
           extraTooltipPrecision: 1,
           renderer: am5xy.AxisRendererY.new(root, {}),
         })
       );
-
-      // Create X-Axis
-      // let xAxis = chart.xAxes.push(
-      //   am5xy.DateAxis.new(root, {
-      //     baseInterval: { timeUnit: "day", count: 1 },
-      //     renderer: am5xy.AxisRendererX.new(root, {}),
-      //     categoryField: "date",
-      //   })
-      // );
 
       let xAxis = chart.xAxes.push(
         am5xy.GaplessDateAxis.new(root, {
@@ -65,7 +54,6 @@ export default {
             { timeUnit: "month", count: 1 },
           ],
           renderer: am5xy.AxisRendererX.new(root, {}),
-          // categoryField: "date",
         })
       );
       xAxis.data.setAll(data);
@@ -80,9 +68,6 @@ export default {
           yAxis: yAxis,
           valueYField: "value",
           valueXField: "date",
-          //   fill: am5.color(0x095256),
-          //   stroke: am5.color(0x095256),
-          //   connect: false,
         })
       );
 
@@ -95,29 +80,14 @@ export default {
         });
       });
 
-      series.strokes.template.setAll({
-        // strokeWidth: 3,
-        // strokeDasharray: [10, 5],
-      });
+      series.strokes.template.setAll({});
       series.fills.template.setAll({
-        // fillOpacity: 0.5,
         visible: true,
       });
 
-      // series
-      //   .get("tooltip")
-      //   .label.set("text", "[bold]{name}[/]\n{valueX.formatDate()}: {valueY}");
-
       series.data.setAll(data);
 
-      // Add legend
-      //   let legend = chart.children.push(am5.Legend.new(root, {}));
-      //   legend.data.setAll(chart.series.values);
-
-      // Add cursor
       chart.set("cursor", am5xy.XYCursor.new(root, {}));
-
-      //   this.root = root;
     },
   },
 

@@ -28,12 +28,7 @@
               >
               </v-text-field>
             </v-col>
-            <v-col cols="12" sm="6" md="4">
-              <!-- <v-switch
-                v-model="productIsPurchased"
-                :label="$t('message.table.editTabelDialog.purchased')"
-              ></v-switch> -->
-            </v-col>
+            <v-col cols="12" sm="6" md="4"> </v-col>
             <v-col cols="12" sm="6" md="4"> </v-col>
             <v-col cols="12" sm="6" md="4" class="d-flex align-end">
               <v-btn
@@ -81,10 +76,6 @@ export default {
         type: String,
         required: true,
       },
-      // isPurchased: {
-      //   type: Boolean,
-      //   required: true,
-      // },
     },
 
     value: {
@@ -97,7 +88,6 @@ export default {
       productName: "",
       productQuantity: "",
       productUnitMeasure: "",
-      // productIsPurchased: false,
     };
   },
   methods: {
@@ -109,7 +99,6 @@ export default {
         name: this.productName,
         quantity: this.productQuantity,
         unitMeasure: this.productUnitMeasure,
-        // isPurchased: this.productIsPurchased,
       });
     },
   },
@@ -128,7 +117,6 @@ export default {
     this.productName = this.groceryFieldsToEdit.name;
     this.productQuantity = this.groceryFieldsToEdit.quantity;
     this.productUnitMeasure = this.groceryFieldsToEdit.unitMeasure;
-    // this.productIsPurchased = this.groceryFieldsToEdit.isPurchased;
   },
 };
 </script>

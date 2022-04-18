@@ -22,7 +22,6 @@ export default {
 
   methods: {
     renderChart() {
-      // Create root and chart
       root = am5.Root.new(this.$refs.chart5);
       let chart = root.container.children.push(
         am5percent.PieChart.new(root, {
@@ -33,7 +32,6 @@ export default {
 
       let data = this.chartData;
 
-      // Create and configure series
       series = chart.series.push(
         am5percent.PieSeries.new(root, {
           name: "Series",
@@ -48,7 +46,6 @@ export default {
         strokeWidth: 1,
       });
 
-      // Add a legend
       legend = chart.children.push(
         am5.Legend.new(root, {
           centerY: am5.percent(50),
@@ -58,7 +55,6 @@ export default {
       );
       legend.data.setAll(series.dataItems);
 
-      // Disable labels and ticks
       series.labels.template.set("forceHidden", true);
       series.ticks.template.set("visible", false);
     },

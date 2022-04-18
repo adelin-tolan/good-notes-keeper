@@ -57,10 +57,6 @@ import { bus } from "../main";
 import { useNotesStore } from "../stores/notes";
 import { mapState, mapActions } from "pinia";
 
-// import this.$dayjs from "this.$dayjs";
-// let customParseFormat = require("this.$dayjs/plugin/customParseFormat");
-// this.$dayjs.extend(customParseFormat);
-
 import DatePatterns from "../constants/date-patterns";
 
 export default {
@@ -88,17 +84,6 @@ export default {
   },
   methods: {
     ...mapActions(useNotesStore, ["fetchNotesList"]),
-
-    // noteFromList(note) {
-    //   const noteItem = { ...note };
-    //   console.log(noteItem);
-    //   noteItem.noteDateCreated = this.$dayjs(
-    //     noteItem.noteDateCreated,
-    //     DatePatterns.API_DATE_TIME_PATTERN
-    //   ).format(DatePatterns.NOTE_ITEM_DATE_TIME_PATTERN);
-
-    //   return noteItem;
-    // },
 
     showHideForm() {
       this.isVisibleForm = !this.isVisibleForm;
@@ -179,10 +164,6 @@ export default {
       );
     },
   },
-
-  // beforeCreate() {
-  //   this.dayjs = dayjs;
-  // },
 
   created() {
     try {

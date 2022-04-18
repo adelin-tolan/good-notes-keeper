@@ -6,7 +6,6 @@
           <v-text-field
             v-model="title"
             :rules="titleRules"
-            :error-messages="titleErrors"
             :counter="20"
             :label="$t('message.form.title')"
             required
@@ -53,7 +52,6 @@
           <v-text-field
             v-model="keyword"
             :rules="keywordsRules"
-            :error-messages="keywordsErrors"
             :counter="15"
             label="Keyword"
             required
@@ -102,8 +100,6 @@ import { bus } from "../main";
 
 export default {
   name: "AddNoteForm",
-  components: {},
-  props: {},
   data() {
     return {
       isValidForm: false,
