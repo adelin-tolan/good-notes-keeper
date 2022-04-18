@@ -65,8 +65,9 @@
           >
             {{ $t("message.form.buttons.addNewKeyword") }}
           </v-btn>
-          <div v-if="joinKeywords !== ''" class="mt-3">
-            {{ $t("message.form.texts.keywordsAddedText") }} {{ joinKeywords }}.
+          <div v-if="joinedKeywords !== ''" class="mt-3">
+            {{ $t("message.form.texts.keywordsAddedText") }}
+            {{ joinedKeywords }}.
           </div>
         </v-col>
       </v-row>
@@ -162,7 +163,7 @@ export default {
   },
 
   computed: {
-    joinKeywords() {
+    joinedKeywords() {
       return this.keywordsList.join(", ");
     },
     isAddKeywordsButtonDisabled() {

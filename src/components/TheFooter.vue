@@ -18,11 +18,11 @@
           md="4"
           class="d-flex justify-center justify-sm-end justify-md-center"
         >
-          ©{{ new Date().getFullYear() }} —
+          ©{{ getCurrentYear }} —
           <strong>{{ $t("message.main.appTitle") }}</strong>
         </v-col>
         <v-col cols="12" md="4" class="d-flex justify-center justify-md-end">
-          <v-btn v-for="icon in icons" :key="icon" class="mx-3" dark icon>
+          <v-btn v-for="icon in socialIcons" :key="icon" class="mx-3" dark icon>
             <v-icon size="24px"> mdi-{{ icon }} </v-icon>
           </v-btn>
         </v-col>
@@ -36,8 +36,14 @@ export default {
   name: "TheFooter",
   data() {
     return {
-      icons: ["facebook", "twitter", "linkedin", "github"],
+      socialIcons: ["facebook", "twitter", "linkedin", "github"],
     };
+  },
+
+  computed: {
+    getCurrentYear() {
+      return new Date().getFullYear();
+    },
   },
 };
 </script>

@@ -13,6 +13,13 @@ import {englishVersion} from "./locales/en.js"
 
 import { createPinia, PiniaVuePlugin } from 'pinia'
 
+import dayjs from "dayjs";
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+dayjs.extend(customParseFormat);
+
+Vue.prototype.$dayjs = dayjs;
+
+
 
 Vue.use(PiniaVuePlugin)
 const pinia = createPinia()

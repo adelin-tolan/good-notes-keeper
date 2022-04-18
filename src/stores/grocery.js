@@ -1,20 +1,18 @@
 import {bus} from '../main'
 import { defineStore } from 'pinia'
 
-export const useGroceryList = defineStore('grocery', {
+export const useGroceryStore = defineStore('grocery', {
     state: () => {
         return {
            groceryList: [],
         }
 
     },
-    getters: {
- 
-    },
+
     actions: {
         async fetchGroceryList() {
             try {
-                const response = await fetch("https://mocki.io/v1/4a100cdb-3497-45d4-94b5-5c0e7cd951db");
+                const response = await fetch("https://mocki.io/v1/be954200-f8ad-46f7-b57a-511674ebc4fb");
                  this.groceryList = await response.json();
                 bus.$emit("api_success", "The initial grocery list has been loaded");
             } catch (err) {

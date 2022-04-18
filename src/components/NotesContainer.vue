@@ -2,14 +2,23 @@
   <div>
     <v-container>
       <v-row>
+        <v-col cols="12" md="6" class="pl-md-3 pr-md-3 px-3">
+          <chart-container :title="chartTitle" :subtitle="chartSubtitleText">
+            <line-chart-4 :chartData="datesAndNumberOfNotesListForChart(4)" />
+          </chart-container>
+        </v-col>
+        <v-col cols="12" md="6" class="pr-md-3 pl-md-3 px-3">
+          <chart-container :title="chartTitle" :subtitle="chartSubtitleText">
+            <line-chart-5 :chartData="datesAndNumberOfNotesListForChart(5)" />
+          </chart-container>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container>
+      <v-row>
         <note-item
-          v-for="(note, index) in sortedNotesList"
-          :noteTitle="note.noteTitle"
-          :noteContent="note.noteContent"
-          :noteAuthor="note.noteAuthor"
-          :noteDateCreated="formatDate(note.noteDateCreated)"
-          :isHighImportance="note.isHighImportance"
-          :keywords="note.keywords"
+          v-for="(note, index) in sortedNotesListByImportance"
+          :note="note"
           :key="index"
         ></note-item>
       </v-row>
@@ -40,15 +49,28 @@
 <script>
 import NoteItem from "./NoteItem.vue";
 import AddNoteForm from "./AddNoteForm.vue";
+import ChartContainer from "./ChartContainer";
+import LineChart4 from "./LineChart4";
+import LineChart5 from "./LineChart5";
+
 import { bus } from "../main";
-import { useNotesList } from "../stores/NotesStore";
+import { useNotesStore } from "../stores/notes";
 import { mapState, mapActions } from "pinia";
+
+// import this.$dayjs from "this.$dayjs";
+// let customParseFormat = require("this.$dayjs/plugin/customParseFormat");
+// this.$dayjs.extend(customParseFormat);
+
+import DatePatterns from "../constants/date-patterns";
 
 export default {
   name: "NotesContainer",
   components: {
     NoteItem,
     AddNoteForm,
+    ChartContainer,
+    LineChart4,
+    LineChart5,
   },
   data() {
     return {
@@ -60,33 +82,28 @@ export default {
       noteKeyword: "",
       keywords: [],
       isLoading: false,
+      chartTitle: "Notes chart by date",
+      chartSubtitleText: "notes/day",
     };
   },
   methods: {
-    ...mapActions(useNotesList, ["fetchNotesList"]),
+    ...mapActions(useNotesStore, ["fetchNotesList"]),
 
-    addPadStart(el) {
-      return String(el).padStart(2, 0);
-    },
-    currentDate() {
-      const d = new Date();
-      return `${d.getFullYear()}-${this.addPadStart(
-        d.getDate()
-      )}-${this.addPadStart(d.getMonth() + 1)}T${this.addPadStart(
-        d.getHours()
-      )}:${this.addPadStart(d.getMinutes())}:${this.addPadStart(
-        d.getSeconds()
-      )}`;
-    },
+    // noteFromList(note) {
+    //   const noteItem = { ...note };
+    //   console.log(noteItem);
+    //   noteItem.noteDateCreated = this.$dayjs(
+    //     noteItem.noteDateCreated,
+    //     DatePatterns.API_DATE_TIME_PATTERN
+    //   ).format(DatePatterns.NOTE_ITEM_DATE_TIME_PATTERN);
 
-    formatDate(date) {
-      const d = date.split("T");
-      const d0 = d[0].split("-");
-      return `${d0[1]}/${d0[2]}/${d0[0]}, ${d[1]}`;
-    },
+    //   return noteItem;
+    // },
+
     showHideForm() {
       this.isVisibleForm = !this.isVisibleForm;
     },
+
     addKeyword(keyword) {
       this.keywords.push(keyword);
     },
@@ -104,17 +121,68 @@ export default {
         noteTitle: title || "empty",
         noteContent: content || "empty",
         noteAuthor: author || "empty",
-        noteDateCreated: this.currentDate(),
+        noteDateCreated: this.$dayjs().format(
+          DatePatterns.API_DATE_TIME_PATTERN
+        ),
         isHighImportance: Boolean(isHighImportance),
         keywords: keywordsList,
       });
 
       this.resetForm();
     },
+
+    createNumberOfNotesPerDayObject(list) {
+      const numberOfNotesPerDay = {};
+      list.forEach((date) => {
+        numberOfNotesPerDay[date]
+          ? numberOfNotesPerDay[date]++
+          : (numberOfNotesPerDay[date] = 1);
+      });
+      return numberOfNotesPerDay;
+    },
+
+    sortAscendingByProperty(datesList, key) {
+      datesList.sort((a, b) => a[key] - b[key]);
+    },
+
+    datesAndNumberOfNotesListForChart(chartVersion) {
+      const listOfDatesAndValues = [];
+      const numberOfNotesPerDay = this.createNumberOfNotesPerDayObject(
+        this.notesListDates
+      );
+
+      Object.entries(numberOfNotesPerDay).forEach((keyValueArray) => {
+        const date = keyValueArray[0];
+        const numberOfNotes = keyValueArray[1];
+        listOfDatesAndValues.push({
+          date:
+            chartVersion === 5
+              ? this.$dayjs(date, DatePatterns.YEAR_MONTH_DAY_PATTERN).valueOf()
+              : this.$dayjs(date, DatePatterns.YEAR_MONTH_DAY_PATTERN).toDate(),
+          value: numberOfNotes,
+        });
+      });
+
+      this.sortAscendingByProperty(listOfDatesAndValues, "date");
+
+      return listOfDatesAndValues;
+    },
   },
   computed: {
-    ...mapState(useNotesList, ["notesList", "sortedNotesList"]),
+    ...mapState(useNotesStore, ["notesList", "sortedNotesListByImportance"]),
+
+    notesListDates() {
+      return this.notesList.map((note) =>
+        this.$dayjs(note.noteDateCreated, DatePatterns.API_DATE_PATTERN).format(
+          DatePatterns.YEAR_MONTH_DAY_PATTERN
+        )
+      );
+    },
   },
+
+  // beforeCreate() {
+  //   this.dayjs = dayjs;
+  // },
 
   created() {
     try {

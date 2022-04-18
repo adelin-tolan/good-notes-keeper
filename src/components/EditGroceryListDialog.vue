@@ -10,29 +10,29 @@
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                 :label="$t('message.table.header.product')"
-                v-model="prodName"
+                v-model="productName"
               >
               </v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                 :label="$t('message.table.header.quantity')"
-                v-model="prodQuantity"
+                v-model="productQuantity"
               >
               </v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                 :label="$t('message.table.header.unit')"
-                v-model="prodUnitMeasure"
+                v-model="productUnitMeasure"
               >
               </v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-switch
-                v-model="prodIsPurchased"
+              <!-- <v-switch
+                v-model="productIsPurchased"
                 :label="$t('message.table.editTabelDialog.purchased')"
-              ></v-switch>
+              ></v-switch> -->
             </v-col>
             <v-col cols="12" sm="6" md="4"> </v-col>
             <v-col cols="12" sm="6" md="4" class="d-flex align-end">
@@ -68,7 +68,7 @@ export default {
       type: Boolean,
       required: true,
     },
-    propsObj: {
+    groceryFieldsToEdit: {
       name: {
         type: String,
         required: true,
@@ -81,10 +81,10 @@ export default {
         type: String,
         required: true,
       },
-      isPurchased: {
-        type: Boolean,
-        required: true,
-      },
+      // isPurchased: {
+      //   type: Boolean,
+      //   required: true,
+      // },
     },
 
     value: {
@@ -94,10 +94,10 @@ export default {
   },
   data() {
     return {
-      prodName: "",
-      prodQuantity: "",
-      prodUnitMeasure: "",
-      prodIsPurchased: false,
+      productName: "",
+      productQuantity: "",
+      productUnitMeasure: "",
+      // productIsPurchased: false,
     };
   },
   methods: {
@@ -106,10 +106,10 @@ export default {
     },
     handleSaveBtn() {
       this.$emit("on-click-dialog-save", {
-        name: this.prodName,
-        quantity: this.prodQuantity,
-        unitMeasure: this.prodUnitMeasure,
-        isPurchased: this.prodIsPurchased,
+        name: this.productName,
+        quantity: this.productQuantity,
+        unitMeasure: this.productUnitMeasure,
+        // isPurchased: this.productIsPurchased,
       });
     },
   },
@@ -125,10 +125,10 @@ export default {
     },
   },
   created() {
-    this.prodName = this.propsObj.name;
-    this.prodQuantity = this.propsObj.quantity;
-    this.prodUnitMeasure = this.propsObj.unitMeasure;
-    this.prodIsPurchased = this.propsObj.isPurchased;
+    this.productName = this.groceryFieldsToEdit.name;
+    this.productQuantity = this.groceryFieldsToEdit.quantity;
+    this.productUnitMeasure = this.groceryFieldsToEdit.unitMeasure;
+    // this.productIsPurchased = this.groceryFieldsToEdit.isPurchased;
   },
 };
 </script>

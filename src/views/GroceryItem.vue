@@ -11,18 +11,20 @@
 
 <script>
 import { mapState } from "pinia";
-import { useGroceryList } from "@/stores/GroceryStore";
+import { useGroceryStore } from "@/stores/grocery";
 
 export default {
   name: "GroceryItem",
 
   computed: {
-    ...mapState(useGroceryList, ["groceryList"]),
+    ...mapState(useGroceryStore, ["groceryList"]),
     currentRouteId() {
       return this.$route.params.groceryItemId;
     },
     currentProduct() {
-      return this.groceryList.find((el) => el.id === this.currentRouteId);
+      return this.groceryList.find(
+        (product) => product.id === this.currentRouteId
+      );
     },
   },
 };

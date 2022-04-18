@@ -1,19 +1,19 @@
 import { defineStore } from 'pinia'
 
-export const useNotesList = defineStore('notes', {
+export const useNotesStore = defineStore('notes', {
     state: () => {
         return {
            notesList: [], 
         }
     },
     getters: {
-        sortedNotesList(state) {
+        sortedNotesListByImportance(state) {
             return state.notesList.sort((a,b)=>b.isHighImportance - a.isHighImportance);
         }
     },
     actions: {
         async fetchNotesList() {           
-            const response = await fetch("https://mocki.io/v1/1c2ad75c-6989-4051-9d76-3aceb475d3d2")
+            const response = await fetch("https://mocki.io/v1/53796a2b-1545-415d-aee5-7e57e190bccb")
             this.notesList = await response.json();      
         }
     }

@@ -36,6 +36,7 @@ export const englishVersion = {
             product: "Product",
             quantity: "Quantity",
             unit: "Unit",
+            category: "Category",
             purchased: "Purchased",
             actions: "Actions"
           },
