@@ -3,13 +3,13 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="6" class="pl-md-3 pr-md-3 px-3">
-          <chart-container :title="chartTitle" :subtitle="chartSubtitleText">
-            <line-chart-4 :chartData="datesAndNumberOfNotesListForChart(4)" />
+          <chart-container :title="chartTitle" :subtitle="chartSubtitle">
+            <line-chart-4 :chartData="datesAndNumberOfNotesPerDayList(4)" />
           </chart-container>
         </v-col>
         <v-col cols="12" md="6" class="pr-md-3 pl-md-3 px-3">
-          <chart-container :title="chartTitle" :subtitle="chartSubtitleText">
-            <line-chart-5 :chartData="datesAndNumberOfNotesListForChart(5)" />
+          <chart-container :title="chartTitle" :subtitle="chartSubtitle">
+            <line-chart-5 :chartData="datesAndNumberOfNotesPerDayList(5)" />
           </chart-container>
         </v-col>
       </v-row>
@@ -23,19 +23,19 @@
         ></note-item>
       </v-row>
 
-      <v-btn color="success" dark @click="showHideForm" class="my-6">
+      <v-btn color="success" dark @click="toggleFormVisibility" class="my-6">
         {{
-          isVisibleForm
+          isFormVisible
             ? $t("message.buttons.hideForm")
             : $t("message.buttons.addNote")
         }}
       </v-btn>
 
       <add-note-form
-        v-if="isVisibleForm"
-        @on-click-add-keyword="addKeyword"
-        @on-click-add-node="addNewNote"
-        @on-click-reset="resetForm"
+        v-if="isFormVisible"
+        @on-add-new-keyword-button-click="handleNewKeywordSubmit"
+        @on-submit-button-click="handleFormSubmit"
+        @on-clear-button-click="handleFormReset"
       >
       </add-note-form>
 
@@ -70,30 +70,29 @@ export default {
   },
   data() {
     return {
-      isVisibleForm: false,
+      isFormVisible: false,
       noteTitle: "",
       noteContent: "",
       noteAuthor: "",
       isHighImportance: false,
-      noteKeyword: "",
       keywords: [],
       isLoading: false,
       chartTitle: "Notes chart by date",
-      chartSubtitleText: "notes/day",
+      chartSubtitle: "notes/day",
     };
   },
   methods: {
     ...mapActions(useNotesStore, ["fetchNotesList"]),
 
-    showHideForm() {
-      this.isVisibleForm = !this.isVisibleForm;
+    toggleFormVisibility() {
+      this.isFormVisible = !this.isFormVisible;
     },
 
-    addKeyword(keyword) {
+    handleNewKeywordSubmit(keyword) {
       this.keywords.push(keyword);
     },
 
-    resetForm() {
+    handleFormReset() {
       this.noteTitle = "";
       this.noteContent = "";
       this.noteAuthor = "";
@@ -101,7 +100,7 @@ export default {
       this.keywords = [];
     },
 
-    addNewNote(title, content, author, isHighImportance, keywordsList) {
+    handleFormSubmit(title, content, author, isHighImportance, keywordsList) {
       this.notesList.push({
         noteTitle: title || "empty",
         noteContent: content || "empty",
@@ -113,12 +112,12 @@ export default {
         keywords: keywordsList,
       });
 
-      this.resetForm();
+      this.handleFormReset();
     },
 
-    createNumberOfNotesPerDayObject(list) {
+    getNumberOfNotesPerDayObject(listOfDatesOnWhichNotesWerePosted) {
       const numberOfNotesPerDay = {};
-      list.forEach((date) => {
+      listOfDatesOnWhichNotesWerePosted.forEach((date) => {
         numberOfNotesPerDay[date]
           ? numberOfNotesPerDay[date]++
           : (numberOfNotesPerDay[date] = 1);
@@ -130,16 +129,16 @@ export default {
       datesList.sort((a, b) => a[key] - b[key]);
     },
 
-    datesAndNumberOfNotesListForChart(chartVersion) {
-      const listOfDatesAndValues = [];
-      const numberOfNotesPerDay = this.createNumberOfNotesPerDayObject(
+    datesAndNumberOfNotesPerDayList(chartVersion) {
+      const datesAndValuesList = [];
+      const numberOfNotesPerDay = this.getNumberOfNotesPerDayObject(
         this.notesListDates
       );
 
       Object.entries(numberOfNotesPerDay).forEach((keyValueArray) => {
         const date = keyValueArray[0];
         const numberOfNotes = keyValueArray[1];
-        listOfDatesAndValues.push({
+        datesAndValuesList.push({
           date:
             chartVersion === 5
               ? this.$dayjs(date, DatePatterns.YEAR_MONTH_DAY_PATTERN).valueOf()
@@ -148,9 +147,9 @@ export default {
         });
       });
 
-      this.sortAscendingByProperty(listOfDatesAndValues, "date");
+      this.sortAscendingByProperty(datesAndValuesList, "date");
 
-      return listOfDatesAndValues;
+      return datesAndValuesList;
     },
   },
   computed: {

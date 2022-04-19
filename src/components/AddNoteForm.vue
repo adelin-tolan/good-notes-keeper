@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form ref="form" v-model="isValidForm">
+    <v-form ref="form" v-model="isFormValid">
       <v-row>
         <v-col cols="12" sm="6" class="d-flex flex-column">
           <v-text-field
@@ -14,7 +14,7 @@
           <v-select
             v-model="author"
             :rules="authorRules"
-            :items="authors"
+            :items="authorsList"
             :label="$t('message.form.author')"
             dense
           ></v-select>
@@ -58,14 +58,14 @@
           ></v-text-field>
           <v-btn
             class="mr-4 text-lowercase"
-            @click.prevent="handleAddKeywordClick"
-            :disabled="isAddKeywordsButtonDisabled"
+            @click.prevent="handleNewKeywordAdd"
+            :disabled="isAddNewKeywordButtonDisabled"
           >
             {{ $t("message.form.buttons.addNewKeyword") }}
           </v-btn>
-          <div v-if="joinedKeywords !== ''" class="mt-3">
+          <div v-if="keywordsListString !== ''" class="mt-3">
             {{ $t("message.form.texts.keywordsAddedText") }}
-            {{ joinedKeywords }}.
+            {{ keywordsListString }}.
           </div>
         </v-col>
       </v-row>
@@ -74,12 +74,12 @@
 
       <v-btn
         class="mr-4"
-        @click.prevent="handleAddNewNote"
-        :disabled="!isValidForm"
+        @click.prevent="handleNewNoteAdd"
+        :disabled="!isFormValid"
       >
         <strong>{{ $t("message.form.buttons.submit") }}</strong>
       </v-btn>
-      <v-btn @click="handleResetForm">
+      <v-btn @click="handleFormReset">
         <strong> {{ $t("message.form.buttons.clear") }} </strong>
       </v-btn>
     </v-form>
@@ -102,11 +102,11 @@ export default {
   name: "AddNoteForm",
   data() {
     return {
-      isValidForm: false,
+      isFormValid: false,
       title: "",
       content: "",
       author: "",
-      authors: [],
+      authorsList: [],
       isHighImportance: "",
       keyword: "",
       keywordsList: [],
@@ -125,7 +125,7 @@ export default {
   },
 
   methods: {
-    handleResetForm() {
+    handleFormReset() {
       this.title = "";
       this.content = "";
       this.author = "";
@@ -133,36 +133,36 @@ export default {
       this.keywordsList = [];
     },
 
-    handleAddNewNote() {
+    handleNewNoteAdd() {
       if (this.$refs.form.validate()) {
         this.$emit(
-          "on-click-add-node",
+          "on-submit-button-click",
           this.title,
           this.content,
           this.author,
           this.isHighImportance,
           this.keywordsList
         );
-        this.handleResetForm();
+        this.handleFormReset();
       }
     },
-    handleAddKeywordClick() {
+    handleNewKeywordAdd() {
       if (this.keyword) {
         this.keywordsList.push(this.keyword);
-        this.$emit("on-click-add-keyword", this.keyword);
+        this.$emit("on-add-new-keyword-button-click", this.keyword);
         this.keyword = "";
       }
     },
     resetValues() {
-      this.$emit("on-click-reset");
+      this.$emit("on-clear-button-click");
     },
   },
 
   computed: {
-    joinedKeywords() {
+    keywordsListString() {
       return this.keywordsList.join(", ");
     },
-    isAddKeywordsButtonDisabled() {
+    isAddNewKeywordButtonDisabled() {
       if (this.keyword.length < 3 || this.keyword.length > 15) {
         return true;
       }
@@ -176,8 +176,8 @@ export default {
       const response = await fetch(
         "https://mocki.io/v1/91c1cd99-8fe0-4eb2-8b42-82c1f940eb01"
       );
-      const authorsList = await response.json();
-      this.authors = authorsList.map((item) => item.name);
+      const fetchedAuthorsList = await response.json();
+      this.authorsList = fetchedAuthorsList.map((author) => author.name);
       bus.$emit("api_success", "The initial name list has been loaded");
     } catch (err) {
       console.error(err);

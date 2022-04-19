@@ -1,5 +1,5 @@
 <template>
-  <v-dialog persistent max-width="600px" v-model="show">
+  <v-dialog persistent max-width="600px" v-model="isDialogOpen">
     <v-card>
       <v-toolbar style="background: rgb(0, 69, 124)" dark>{{
         $t("message.table.editTabelDialog.title")
@@ -10,21 +10,21 @@
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                 :label="$t('message.table.header.product')"
-                v-model="productName"
+                v-model="name"
               >
               </v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                 :label="$t('message.table.header.quantity')"
-                v-model="productQuantity"
+                v-model="quantity"
               >
               </v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                 :label="$t('message.table.header.unit')"
-                v-model="productUnitMeasure"
+                v-model="unitMeasure"
               >
               </v-text-field>
             </v-col>
@@ -35,7 +35,7 @@
                 outlined
                 text
                 class="rounded-0 py-5"
-                @click="handleCloseBtn"
+                @click="handleClickOnCancelButton"
               >
                 Cancel
               </v-btn>
@@ -43,7 +43,7 @@
                 outlined
                 text
                 class="ml-2 rounded-0 py-5"
-                @click="handleSaveBtn"
+                @click="handleClickOnSaveButton"
               >
                 Save
               </v-btn>
@@ -59,11 +59,7 @@
 export default {
   name: "EditGroceryListDialog",
   props: {
-    isDialogOpen: {
-      type: Boolean,
-      required: true,
-    },
-    groceryFieldsToEdit: {
+    grocery: {
       name: {
         type: String,
         required: true,
@@ -85,25 +81,25 @@ export default {
   },
   data() {
     return {
-      productName: "",
-      productQuantity: "",
-      productUnitMeasure: "",
+      name: "",
+      quantity: "",
+      unitMeasure: "",
     };
   },
   methods: {
-    handleCloseBtn() {
-      this.$emit("on-click-dialog-close");
+    handleClickOnCancelButton() {
+      this.$emit("on-cancel-button-click");
     },
-    handleSaveBtn() {
-      this.$emit("on-click-dialog-save", {
-        name: this.productName,
-        quantity: this.productQuantity,
-        unitMeasure: this.productUnitMeasure,
+    handleClickOnSaveButton() {
+      this.$emit("on-save-button-click", {
+        name: this.name,
+        quantity: this.quantity,
+        unitMeasure: this.unitMeasure,
       });
     },
   },
   computed: {
-    show: {
+    isDialogOpen: {
       get() {
         return this.value;
       },
@@ -114,9 +110,9 @@ export default {
     },
   },
   created() {
-    this.productName = this.groceryFieldsToEdit.name;
-    this.productQuantity = this.groceryFieldsToEdit.quantity;
-    this.productUnitMeasure = this.groceryFieldsToEdit.unitMeasure;
+    this.name = this.grocery.name;
+    this.quantity = this.grocery.quantity;
+    this.unitMeasure = this.grocery.unitMeasure;
   },
 };
 </script>

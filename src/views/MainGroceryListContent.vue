@@ -4,17 +4,17 @@
       <v-col cols="12" md="6" class="pl-md-9 pr-md-3 px-9">
         <chart-container
           :title="chartTitle"
-          :subtitle="groceriesNumberTextForChart"
+          :subtitle="textContainingGroceriesNumber"
         >
-          <donut-chart-4 :chartData="categoriesAndValuesListForChart" />
+          <donut-chart-4 :chartData="numberOfProductsPerCategoryList" />
         </chart-container>
       </v-col>
       <v-col cols="12" md="6" class="pr-md-9 pl-md-3 px-9">
         <chart-container
           :title="chartTitle"
-          :subtitle="groceriesNumberTextForChart"
+          :subtitle="textContainingGroceriesNumber"
         >
-          <donut-chart-5 :chartData="categoriesAndValuesListForChart" />
+          <donut-chart-5 :chartData="numberOfProductsPerCategoryList" />
         </chart-container>
       </v-col>
     </v-row>
@@ -23,7 +23,7 @@
       :headers="headers"
       :items="groceryList"
       :items-per-page="10"
-      :item-class="addStyleToPurchasedProducts"
+      :item-class="addClassToPurchasedProductsTableRows"
       class="elevation-1 my-6 mx-6"
     >
       <template #[`item.name`]="{ item }">
@@ -36,7 +36,7 @@
       <template #[`item.isPurchased`]="{ item }">
         <v-checkbox
           v-model="item.isPurchased"
-          @click.native.capture="handleChangeIsPurchased($event, item)"
+          @click.native.capture="handleConfirmationDialogOpen($event, item)"
           :disabled="item.isPurchased"
         >
         </v-checkbox>
@@ -53,26 +53,26 @@
     </v-data-table>
 
     <edit-grocery-list-dialog
-      v-if="isDialogOpen"
-      v-model="isDialogOpen"
-      :groceryFieldsToEdit="productToEdit"
-      @on-click-dialog-close="handleDialogClose"
-      @on-click-dialog-save="handleDialogSave"
+      v-if="isEditGroceryDialogOpen"
+      v-model="isEditGroceryDialogOpen"
+      :grocery="productToEdit"
+      @on-cancel-button-click="handleDialogClose"
+      @on-save-button-click="handleDialogSave"
     />
 
-    <confirm-dialog
-      v-if="isPurchasedConfirmOpen"
-      v-model="isPurchasedConfirmOpen"
-      :confirmation-question-text="confirmDialogText"
-      @on-click-cancel-confirm-dialog="handlePurchasedConfirmCancel"
-      @on-click-confirm-dialog="handlePurchasedConfirm"
+    <confirmation-dialog
+      v-if="isConfirmationDialogOpen"
+      v-model="isConfirmationDialogOpen"
+      :confirmation-question="confirmationQuestion"
+      @on-cancel-button-click="handleConfirmationCancel"
+      @on-confirm-button-click="handleConfirmationApprove"
     />
   </div>
 </template>
 
 <script>
 import EditGroceryListDialog from "../components/EditGroceryListDialog";
-import ConfirmDialog from "../components/ConfirmDialog";
+import ConfirmationDialog from "../components/ConfirmationDialog";
 import ChartContainer from "../components/ChartContainer";
 import DonutChart4 from "../components/DonutChart4";
 import DonutChart5 from "../components/DonutChart5";
@@ -84,7 +84,7 @@ export default {
   name: "MainGroceryListContent",
   components: {
     EditGroceryListDialog,
-    ConfirmDialog,
+    ConfirmationDialog,
     ChartContainer,
     DonutChart4,
     DonutChart5,
@@ -115,12 +115,12 @@ export default {
         },
         { text: this.$t("message.table.header.actions"), value: "actions" },
       ],
-      isDialogOpen: false,
-      isPurchasedConfirmOpen: false,
+      isEditGroceryDialogOpen: false,
+      isConfirmationDialogOpen: false,
       productToEdit: {},
       indexOfProductToEdit: null,
       chartTitle: "Groceries category",
-      confirmDialogText: "Are you sure you bought this product?",
+      confirmationQuestion: "Are you sure you bought this product?",
     };
   },
 
@@ -130,11 +130,11 @@ export default {
     handleEditProduct(product) {
       this.indexOfProductToEdit = this.groceryList.indexOf(product);
       this.productToEdit = { ...product };
-      this.isDialogOpen = true;
+      this.isEditGroceryDialogOpen = true;
     },
 
     handleDialogClose() {
-      this.isDialogOpen = false;
+      this.isEditGroceryDialogOpen = false;
     },
 
     handleDialogSave(newProductValues) {
@@ -142,29 +142,29 @@ export default {
       newProductValues.category = this.productToEdit.category;
 
       this.groceryList.splice(this.indexOfProductToEdit, 1, newProductValues);
-      this.isDialogOpen = false;
+      this.isEditGroceryDialogOpen = false;
     },
 
-    handleChangeIsPurchased(event, product) {
+    handleConfirmationDialogOpen(event, product) {
       event.stopPropagation();
       if (!product.isPurchased) {
         this.indexOfProductToEdit = product.id;
-        this.isPurchasedConfirmOpen = true;
+        this.isConfirmationDialogOpen = true;
       }
     },
 
-    handlePurchasedConfirmCancel() {
-      this.isPurchasedConfirmOpen = false;
+    handleConfirmationCancel() {
+      this.isConfirmationDialogOpen = false;
     },
 
-    handlePurchasedConfirm() {
+    handleConfirmationApprove() {
       this.groceryList.find(
         (product) => product.id === this.indexOfProductToEdit
       ).isPurchased = true;
-      this.isPurchasedConfirmOpen = false;
+      this.isConfirmationDialogOpen = false;
     },
 
-    addStyleToPurchasedProducts(product) {
+    addClassToPurchasedProductsTableRows(product) {
       if (product.isPurchased) {
         return "purchased-style";
       }
@@ -185,7 +185,7 @@ export default {
       return numberOfProductsPerCategory;
     },
 
-    categoriesAndValuesListForChart() {
+    numberOfProductsPerCategoryList() {
       const listOfCategoriesAndValues = [];
       Object.entries(this.numberOfProductsPerCategoryObject).forEach(
         (categoryValueArray) => {
@@ -200,7 +200,7 @@ export default {
       return listOfCategoriesAndValues;
     },
 
-    groceriesNumberTextForChart() {
+    textContainingGroceriesNumber() {
       return `Total: ${this.groceryList.length} groceries`;
     },
   },

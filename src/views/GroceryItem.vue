@@ -1,10 +1,10 @@
 <template>
   <v-card class="mx-auto" max-width="344">
     <v-card-text>
-      <p class="text-h4 text--primary">Product: {{ currentProduct.name }}</p>
-      <p class="text--primary">Quantity: {{ currentProduct.quantity }}</p>
-      <p class="text--primary">Unit: {{ currentProduct.unitMeasure }}</p>
-      <p class="text--primary">Prchased: {{ currentProduct.isPurchased }}</p>
+      <p class="text-h4 text--primary">Product: {{ product.name }}</p>
+      <p class="text--primary">Quantity: {{ product.quantity }}</p>
+      <p class="text--primary">Unit: {{ product.unitMeasure }}</p>
+      <p class="text--primary">Prchased: {{ product.isPurchased }}</p>
     </v-card-text>
   </v-card>
 </template>
@@ -21,7 +21,7 @@ export default {
     currentRouteId() {
       return this.$route.params.groceryItemId;
     },
-    currentProduct() {
+    product() {
       return this.groceryList.find(
         (product) => product.id === this.currentRouteId
       );

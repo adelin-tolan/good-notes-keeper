@@ -8,12 +8,16 @@
         </div>
         <div>
           <span>{{ note.noteAuthor }}</span>
-          <span>{{ parseFormatDate(note.noteDateCreated) }}</span>
+          <span>{{
+            parseDateFromApiToNoteItemPattern(note.noteDateCreated)
+          }}</span>
           <span>
             <v-icon v-if="note.isHighImportance"> mdi-file-alert </v-icon>
             <v-icon v-else> mdi-file </v-icon>
           </span>
-          <span v-if="joinedKeywords">Keywords: {{ joinedKeywords }}.</span>
+          <span v-if="keywordsListString"
+            >Keywords: {{ keywordsListString }}.</span
+          >
         </div>
       </v-card-text>
     </v-card>
@@ -55,7 +59,7 @@ export default {
   },
 
   methods: {
-    parseFormatDate(date) {
+    parseDateFromApiToNoteItemPattern(date) {
       return this.$dayjs(date, DatePatterns.API_DATE_TIME_PATTERN).format(
         DatePatterns.NOTE_ITEM_DATE_TIME_PATTERN
       );
@@ -63,7 +67,7 @@ export default {
   },
 
   computed: {
-    joinedKeywords() {
+    keywordsListString() {
       return this.note.keywords.join(", ");
     },
   },

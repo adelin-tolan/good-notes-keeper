@@ -1,13 +1,15 @@
 <template>
-  <v-dialog max-width="300px" v-model="show">
+  <v-dialog max-width="300px" v-model="isDialogOpen">
     <v-card class="py-6">
       <v-card-text class="font-weight-medium">
-        {{ confirmationQuestionText }}
+        {{ confirmationQuestion }}
       </v-card-text>
       <v-card-actions class="px-6 pt-1 pb-0">
         <v-spacer></v-spacer>
-        <v-btn small @click="handleCancelBtn">Cancel</v-btn>
-        <v-btn small color="success" @click="handleConfirmBtn">Confirm</v-btn>
+        <v-btn small @click="handleClickOnCancelButton">Cancel</v-btn>
+        <v-btn small color="success" @click="handleClickOnConfirmButton"
+          >Confirm</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -15,9 +17,9 @@
 
 <script>
 export default {
-  name: "ConfirmDialog",
+  name: "ConfirmationDialog",
   props: {
-    confirmationQuestionText: {
+    confirmationQuestion: {
       type: String,
       required: true,
     },
@@ -27,15 +29,15 @@ export default {
     },
   },
   methods: {
-    handleCancelBtn() {
-      this.$emit("on-click-cancel-confirm-dialog");
+    handleClickOnCancelButton() {
+      this.$emit("on-cancel-button-click");
     },
-    handleConfirmBtn() {
-      this.$emit("on-click-confirm-dialog");
+    handleClickOnConfirmButton() {
+      this.$emit("on-confirm-button-click");
     },
   },
   computed: {
-    show: {
+    isDialogOpen: {
       get() {
         return this.value;
       },
