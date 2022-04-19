@@ -81,6 +81,34 @@ export default {
       chartSubtitle: "notes/day",
     };
   },
+
+  computed: {
+    ...mapState(useNotesStore, ["notesList", "sortedNotesListByImportance"]),
+
+    notesListDates() {
+      return this.notesList.map((note) =>
+        this.$dayjs(note.noteDateCreated, DatePatterns.API_DATE_PATTERN).format(
+          DatePatterns.YEAR_MONTH_DAY_PATTERN
+        )
+      );
+    },
+  },
+
+  created() {
+    try {
+      this.isLoading = true;
+      this.fetchNotesList();
+      bus.$emit("api_success", "The initial notes list has been loaded");
+    } catch (err) {
+      console.error(err);
+      bus.$emit("api_error", err.message);
+    } finally {
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 0);
+    }
+  },
+
   methods: {
     ...mapActions(useNotesStore, ["fetchNotesList"]),
 
@@ -151,32 +179,6 @@ export default {
 
       return datesAndValuesList;
     },
-  },
-  computed: {
-    ...mapState(useNotesStore, ["notesList", "sortedNotesListByImportance"]),
-
-    notesListDates() {
-      return this.notesList.map((note) =>
-        this.$dayjs(note.noteDateCreated, DatePatterns.API_DATE_PATTERN).format(
-          DatePatterns.YEAR_MONTH_DAY_PATTERN
-        )
-      );
-    },
-  },
-
-  created() {
-    try {
-      this.isLoading = true;
-      this.fetchNotesList();
-      bus.$emit("api_success", "The initial notes list has been loaded");
-    } catch (err) {
-      console.error(err);
-      bus.$emit("api_error", err.message);
-    } finally {
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 0);
-    }
   },
 };
 </script>

@@ -28,14 +28,7 @@ export default {
       required: true,
     },
   },
-  methods: {
-    handleClickOnCancelButton() {
-      this.$emit("on-cancel-button-click");
-    },
-    handleClickOnConfirmButton() {
-      this.$emit("on-confirm-button-click");
-    },
-  },
+
   computed: {
     isDialogOpen: {
       get() {
@@ -44,6 +37,15 @@ export default {
       set(value) {
         this.$emit("input", value);
       },
+    },
+  },
+
+  methods: {
+    handleClickOnCancelButton() {
+      this.$emit("on-cancel-button-click");
+    },
+    handleClickOnConfirmButton() {
+      this.$emit("on-confirm-button-click");
     },
   },
 };

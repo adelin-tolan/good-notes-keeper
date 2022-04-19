@@ -20,6 +20,22 @@ export default {
     },
   },
 
+  watch: {
+    chartData(values) {
+      series.data.setAll(values);
+    },
+  },
+
+  mounted() {
+    this.renderChart();
+  },
+
+  beforeDestroy() {
+    if (root) {
+      root.dispose();
+    }
+  },
+
   methods: {
     renderChart() {
       root = am5.Root.new(this.$refs.chartdiv5);
@@ -89,22 +105,6 @@ export default {
 
       chart.set("cursor", am5xy.XYCursor.new(root, {}));
     },
-  },
-
-  watch: {
-    chartData(values) {
-      series.data.setAll(values);
-    },
-  },
-
-  mounted() {
-    this.renderChart();
-  },
-
-  beforeDestroy() {
-    if (root) {
-      root.dispose();
-    }
   },
 };
 </script>

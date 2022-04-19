@@ -9,22 +9,22 @@
           <v-row class="mt-4">
             <v-col cols="12" sm="6" md="4">
               <v-text-field
-                :label="$t('message.table.header.product')"
                 v-model="name"
+                :label="$t('message.table.header.product')"
               >
               </v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
-                :label="$t('message.table.header.quantity')"
                 v-model="quantity"
+                :label="$t('message.table.header.quantity')"
               >
               </v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-text-field
-                :label="$t('message.table.header.unit')"
                 v-model="unitMeasure"
+                :label="$t('message.table.header.unit')"
               >
               </v-text-field>
             </v-col>
@@ -86,18 +86,7 @@ export default {
       unitMeasure: "",
     };
   },
-  methods: {
-    handleClickOnCancelButton() {
-      this.$emit("on-cancel-button-click");
-    },
-    handleClickOnSaveButton() {
-      this.$emit("on-save-button-click", {
-        name: this.name,
-        quantity: this.quantity,
-        unitMeasure: this.unitMeasure,
-      });
-    },
-  },
+
   computed: {
     isDialogOpen: {
       get() {
@@ -109,10 +98,24 @@ export default {
       },
     },
   },
+
   created() {
     this.name = this.grocery.name;
     this.quantity = this.grocery.quantity;
     this.unitMeasure = this.grocery.unitMeasure;
+  },
+
+  methods: {
+    handleClickOnCancelButton() {
+      this.$emit("on-cancel-button-click");
+    },
+    handleClickOnSaveButton() {
+      this.$emit("on-save-button-click", {
+        name: this.name,
+        quantity: this.quantity,
+        unitMeasure: this.unitMeasure,
+      });
+    },
   },
 };
 </script>

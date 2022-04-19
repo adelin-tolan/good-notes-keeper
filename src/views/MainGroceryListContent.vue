@@ -36,16 +36,16 @@
       <template #[`item.isPurchased`]="{ item }">
         <v-checkbox
           v-model="item.isPurchased"
-          @click.native.capture="handleConfirmationDialogOpen($event, item)"
           :disabled="item.isPurchased"
+          @click.native.capture="handleConfirmationDialogOpen($event, item)"
         >
         </v-checkbox>
       </template>
       <template #[`item.actions`]="{ item }">
         <v-icon
           class="green--text"
-          @click="handleEditProduct(item)"
           :disabled="item.isPurchased"
+          @click="handleEditProduct(item)"
         >
           mdi-pencil
         </v-icon>
@@ -89,6 +89,7 @@ export default {
     DonutChart4,
     DonutChart5,
   },
+
   data() {
     return {
       headers: [
@@ -122,6 +123,44 @@ export default {
       chartTitle: "Groceries category",
       confirmationQuestion: "Are you sure you bought this product?",
     };
+  },
+
+  computed: {
+    ...mapState(useGroceryStore, ["groceryList"]),
+
+    numberOfProductsPerCategoryObject() {
+      const numberOfProductsPerCategory = {};
+      this.groceryList.forEach((product) =>
+        numberOfProductsPerCategory[product.category]
+          ? numberOfProductsPerCategory[product.category]++
+          : (numberOfProductsPerCategory[product.category] = 1)
+      );
+      console.log(numberOfProductsPerCategory);
+      return numberOfProductsPerCategory;
+    },
+
+    numberOfProductsPerCategoryList() {
+      const listOfCategoriesAndValues = [];
+      Object.entries(this.numberOfProductsPerCategoryObject).forEach(
+        (categoryValueArray) => {
+          const category = categoryValueArray[0];
+          const numberOfProducts = categoryValueArray[1];
+          listOfCategoriesAndValues.push({
+            category: category,
+            value: numberOfProducts,
+          });
+        }
+      );
+      return listOfCategoriesAndValues;
+    },
+
+    textContainingGroceriesNumber() {
+      return `Total: ${this.groceryList.length} groceries`;
+    },
+  },
+
+  created() {
+    this.fetchGroceryList();
   },
 
   methods: {
@@ -169,44 +208,6 @@ export default {
         return "purchased-style";
       }
     },
-  },
-
-  computed: {
-    ...mapState(useGroceryStore, ["groceryList"]),
-
-    numberOfProductsPerCategoryObject() {
-      const numberOfProductsPerCategory = {};
-      this.groceryList.forEach((product) =>
-        numberOfProductsPerCategory[product.category]
-          ? numberOfProductsPerCategory[product.category]++
-          : (numberOfProductsPerCategory[product.category] = 1)
-      );
-      console.log(numberOfProductsPerCategory);
-      return numberOfProductsPerCategory;
-    },
-
-    numberOfProductsPerCategoryList() {
-      const listOfCategoriesAndValues = [];
-      Object.entries(this.numberOfProductsPerCategoryObject).forEach(
-        (categoryValueArray) => {
-          const category = categoryValueArray[0];
-          const numberOfProducts = categoryValueArray[1];
-          listOfCategoriesAndValues.push({
-            category: category,
-            value: numberOfProducts,
-          });
-        }
-      );
-      return listOfCategoriesAndValues;
-    },
-
-    textContainingGroceriesNumber() {
-      return `Total: ${this.groceryList.length} groceries`;
-    },
-  },
-
-  created() {
-    this.fetchGroceryList();
   },
 };
 </script>

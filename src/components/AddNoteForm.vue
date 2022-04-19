@@ -24,9 +24,9 @@
             v-model="content"
             :rules="contentRules"
             :counter="200"
+            :label="$t('message.form.content')"
             clearable
             clear-icon="mdi-close-circle"
-            :label="$t('message.form.content')"
           ></v-textarea>
         </v-col>
       </v-row>
@@ -58,8 +58,8 @@
           ></v-text-field>
           <v-btn
             class="mr-4 text-lowercase"
-            @click.prevent="handleNewKeywordAdd"
             :disabled="isAddNewKeywordButtonDisabled"
+            @click.prevent="handleNewKeywordAdd"
           >
             {{ $t("message.form.buttons.addNewKeyword") }}
           </v-btn>
@@ -74,8 +74,8 @@
 
       <v-btn
         class="mr-4"
-        @click.prevent="handleNewNoteAdd"
         :disabled="!isFormValid"
+        @click.prevent="handleNewNoteAdd"
       >
         <strong>{{ $t("message.form.buttons.submit") }}</strong>
       </v-btn>
@@ -124,6 +124,37 @@ export default {
     };
   },
 
+  computed: {
+    keywordsListString() {
+      return this.keywordsList.join(", ");
+    },
+    isAddNewKeywordButtonDisabled() {
+      if (this.keyword.length < 3 || this.keyword.length > 15) {
+        return true;
+      }
+      return false;
+    },
+  },
+
+  async created() {
+    try {
+      this.isLoading = true;
+      const response = await fetch(
+        "https://mocki.io/v1/91c1cd99-8fe0-4eb2-8b42-82c1f940eb01"
+      );
+      const fetchedAuthorsList = await response.json();
+      this.authorsList = fetchedAuthorsList.map((author) => author.name);
+      bus.$emit("api_success", "The initial name list has been loaded");
+    } catch (err) {
+      console.error(err);
+      bus.$emit("api_error", err.message);
+    } finally {
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 0);
+    }
+  },
+
   methods: {
     handleFormReset() {
       this.title = "";
@@ -156,37 +187,6 @@ export default {
     resetValues() {
       this.$emit("on-clear-button-click");
     },
-  },
-
-  computed: {
-    keywordsListString() {
-      return this.keywordsList.join(", ");
-    },
-    isAddNewKeywordButtonDisabled() {
-      if (this.keyword.length < 3 || this.keyword.length > 15) {
-        return true;
-      }
-      return false;
-    },
-  },
-
-  async created() {
-    try {
-      this.isLoading = true;
-      const response = await fetch(
-        "https://mocki.io/v1/91c1cd99-8fe0-4eb2-8b42-82c1f940eb01"
-      );
-      const fetchedAuthorsList = await response.json();
-      this.authorsList = fetchedAuthorsList.map((author) => author.name);
-      bus.$emit("api_success", "The initial name list has been loaded");
-    } catch (err) {
-      console.error(err);
-      bus.$emit("api_error", err.message);
-    } finally {
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 0);
-    }
   },
 };
 </script>

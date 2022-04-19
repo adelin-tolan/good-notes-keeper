@@ -29,9 +29,11 @@
 <script>
 export default {
   name: "TheHeader",
+
   data() {
     return {};
   },
+
   methods: {
     handleHomeRouterLink() {
       this.$router.push("/");

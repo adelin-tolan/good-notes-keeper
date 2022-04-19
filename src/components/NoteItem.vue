@@ -58,17 +58,17 @@ export default {
     },
   },
 
+  computed: {
+    keywordsListString() {
+      return this.note.keywords.join(", ");
+    },
+  },
+
   methods: {
     parseDateFromApiToNoteItemPattern(date) {
       return this.$dayjs(date, DatePatterns.API_DATE_TIME_PATTERN).format(
         DatePatterns.NOTE_ITEM_DATE_TIME_PATTERN
       );
-    },
-  },
-
-  computed: {
-    keywordsListString() {
-      return this.note.keywords.join(", ");
     },
   },
 };

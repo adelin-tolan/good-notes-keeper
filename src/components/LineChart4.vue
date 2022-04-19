@@ -23,6 +23,22 @@ export default {
     },
   },
 
+  watch: {
+    chartData(values) {
+      chart.data = values;
+    },
+  },
+
+  mounted() {
+    this.renderChart();
+  },
+
+  beforeDestroy() {
+    if (chart) {
+      chart.dispose();
+    }
+  },
+
   methods: {
     renderChart() {
       chart = am4core.create(this.$refs.chartdiv4, am4charts.XYChart);
@@ -47,22 +63,6 @@ export default {
 
       this.chart = chart;
     },
-  },
-
-  watch: {
-    chartData(values) {
-      chart.data = values;
-    },
-  },
-
-  mounted() {
-    this.renderChart();
-  },
-
-  beforeDestroy() {
-    if (chart) {
-      chart.dispose();
-    }
   },
 };
 </script>

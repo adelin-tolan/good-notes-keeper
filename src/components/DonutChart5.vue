@@ -20,6 +20,23 @@ export default {
     },
   },
 
+  watch: {
+    chartData(values) {
+      series.data.setAll(values);
+      legend.data.setAll(series.dataItems);
+    },
+  },
+
+  mounted() {
+    this.renderChart();
+  },
+
+  beforeDestroy() {
+    if (root) {
+      root.dispose();
+    }
+  },
+
   methods: {
     renderChart() {
       root = am5.Root.new(this.$refs.chart5);
@@ -58,23 +75,6 @@ export default {
       series.labels.template.set("forceHidden", true);
       series.ticks.template.set("visible", false);
     },
-  },
-
-  watch: {
-    chartData(values) {
-      series.data.setAll(values);
-      legend.data.setAll(series.dataItems);
-    },
-  },
-
-  mounted() {
-    this.renderChart();
-  },
-
-  beforeDestroy() {
-    if (root) {
-      root.dispose();
-    }
   },
 };
 </script>

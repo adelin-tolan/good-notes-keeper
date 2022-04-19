@@ -21,6 +21,22 @@ export default {
     },
   },
 
+  watch: {
+    chartData(values) {
+      chart.data = values;
+    },
+  },
+
+  mounted() {
+    this.renderChart();
+  },
+
+  beforeDestroy() {
+    if (chart) {
+      chart.dispose();
+    }
+  },
+
   methods: {
     renderChart() {
       chart = am4core.create(this.$refs.chart4, am4charts.PieChart);
@@ -40,22 +56,6 @@ export default {
       pieSeries.labels.template.disabled = true;
       pieSeries.ticks.template.disabled = true;
     },
-  },
-
-  watch: {
-    chartData(values) {
-      chart.data = values;
-    },
-  },
-
-  mounted() {
-    this.renderChart();
-  },
-
-  beforeDestroy() {
-    if (chart) {
-      chart.dispose();
-    }
   },
 };
 </script>

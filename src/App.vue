@@ -30,6 +30,7 @@ export default {
     TheHeader,
     TheFooter,
   },
+
   data() {
     return {
       isSnackbarOpen: false,
@@ -37,11 +38,13 @@ export default {
       snackbarColor: "",
     };
   },
+
   computed: {
     isNotHomeRoute() {
       return this.$route.path !== "/";
     },
   },
+
   created() {
     bus.$on("api_success", (data) => {
       this.snackbarText = data;
