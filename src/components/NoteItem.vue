@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import DatePatterns from "../constants/date-patterns";
+import DateMethods from "../global-methods/date-methods";
 
 export default {
   name: "NoteItem",
@@ -66,9 +66,7 @@ export default {
 
   methods: {
     parseDateFromApiToNoteItemPattern(date) {
-      return this.$dayjs(date, DatePatterns.API_DATE_TIME_PATTERN).format(
-        DatePatterns.NOTE_ITEM_DATE_TIME_PATTERN
-      );
+      return DateMethods.convertApiDateTimeToNoteDateTimePattern(date);
     },
   },
 };

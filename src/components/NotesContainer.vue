@@ -57,7 +57,7 @@ import { bus } from "../main";
 import { useNotesStore } from "../stores/notes";
 import { mapState, mapActions } from "pinia";
 
-import DatePatterns from "../constants/date-patterns";
+import DateMethods from "../global-methods/date-methods";
 
 export default {
   name: "NotesContainer",
@@ -85,11 +85,9 @@ export default {
   computed: {
     ...mapState(useNotesStore, ["notesList", "sortedNotesListByImportance"]),
 
-    notesListDates() {
+    notesDatesList() {
       return this.notesList.map((note) =>
-        this.$dayjs(note.noteDateCreated, DatePatterns.API_DATE_PATTERN).format(
-          DatePatterns.YEAR_MONTH_DAY_PATTERN
-        )
+        DateMethods.convertApiDateToYearMonthDayPattern(note.noteDateCreated)
       );
     },
   },
@@ -133,9 +131,7 @@ export default {
         noteTitle: title || "empty",
         noteContent: content || "empty",
         noteAuthor: author || "empty",
-        noteDateCreated: this.$dayjs().format(
-          DatePatterns.API_DATE_TIME_PATTERN
-        ),
+        noteDateCreated: DateMethods.formatCurrentDateInApiDateTimePattern,
         isHighImportance: Boolean(isHighImportance),
         keywords: keywordsList,
       });
@@ -160,7 +156,7 @@ export default {
     datesAndNumberOfNotesPerDayList(chartVersion) {
       const datesAndValuesList = [];
       const numberOfNotesPerDay = this.getNumberOfNotesPerDayObject(
-        this.notesListDates
+        this.notesDatesList
       );
 
       Object.entries(numberOfNotesPerDay).forEach((keyValueArray) => {
@@ -169,8 +165,10 @@ export default {
         datesAndValuesList.push({
           date:
             chartVersion === 5
-              ? this.$dayjs(date, DatePatterns.YEAR_MONTH_DAY_PATTERN).valueOf()
-              : this.$dayjs(date, DatePatterns.YEAR_MONTH_DAY_PATTERN).toDate(),
+              ? DateMethods.convertDateFromYearMonthDayPatternToUnixTimestamp(
+                  date
+                )
+              : DateMethods.convertDayjsToNativeDateObject(date),
           value: numberOfNotes,
         });
       });
