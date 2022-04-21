@@ -1,6 +1,10 @@
 export const englishVersion = {
   titles: {
     appTitle: "Adelin's Notes Keeper",
+    notesChartTitle: "Notes chart by date",
+    notesChartSubtitle: "notes/day",
+    groceryChartTitle: "Groceries category",
+    groceryChartSubtitle: "Total: {groceriesNumber} groceries"
   },
 
   common: {

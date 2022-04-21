@@ -122,7 +122,7 @@ export default {
       isConfirmationDialogOpen: false,
       productToEdit: {},
       indexOfProductToEdit: null,
-      chartTitle: "Groceries category",
+      chartTitle: this.$t("titles.groceryChartTitle"),
       confirmationQuestion: "Are you sure you bought this product?",
     };
   },
@@ -157,7 +157,10 @@ export default {
     },
 
     textContainingGroceriesNumber() {
-      return `Total: ${this.groceryList.length} groceries`;
+      // return `Total: ${this.groceryList.length} groceries`;
+      return this.$t("titles.groceryChartSubtitle", {
+        groceriesNumber: this.groceryList.length,
+      });
     },
   },
 

@@ -74,8 +74,8 @@ export default {
       isHighImportance: false,
       keywords: [],
       isLoading: false,
-      chartTitle: "Notes chart by date",
-      chartSubtitle: "notes/day",
+      chartTitle: this.$t("titles.notesChartTitle"),
+      chartSubtitle: this.$t("titles.notesChartSubtitle"),
     };
   },
 
