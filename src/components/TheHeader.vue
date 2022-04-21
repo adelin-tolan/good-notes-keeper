@@ -13,7 +13,7 @@
 
           <v-spacer></v-spacer>
           <v-toolbar-title @click="handleHomeRouterLink">{{
-            $t("message.main.appTitle")
+            $t("titles.appTitle")
           }}</v-toolbar-title>
           <v-spacer></v-spacer>
 

@@ -6,10 +6,12 @@
       </v-card-text>
       <v-card-actions class="px-6 pt-1 pb-0">
         <v-spacer></v-spacer>
-        <v-btn small @click="handleClickOnCancelButton">Cancel</v-btn>
-        <v-btn small color="success" @click="handleClickOnConfirmButton"
-          >Confirm</v-btn
-        >
+        <v-btn small @click="handleClickOnCancelButton">{{
+          $t("buttons.cancel")
+        }}</v-btn>
+        <v-btn small color="success" @click="handleClickOnConfirmButton">{{
+          $t("buttons.confirm")
+        }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

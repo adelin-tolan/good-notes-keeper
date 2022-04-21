@@ -19,7 +19,7 @@
           class="d-flex justify-center justify-sm-end justify-md-center"
         >
           ©{{ getCurrentYear }} —
-          <strong>{{ $t("message.main.appTitle") }}</strong>
+          <strong>{{ $t("titles.appTitle") }}</strong>
         </v-col>
         <v-col cols="12" md="4" class="d-flex justify-center justify-md-end">
           <v-btn v-for="icon in socialIcons" :key="icon" class="mx-3" dark icon>

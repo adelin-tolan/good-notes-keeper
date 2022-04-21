@@ -1,49 +1,64 @@
 export const englishVersion = {
-    message: {
-        main: {
-          appTitle: "Adelin's Notes Keeper"
-        },
-        features: {
-          notes: "notes",
-          groceryList: "grocery list"
-        },
-        buttons: {
-          hideForm: "Hide form",
-          addNote: "Add note"
-        },
-        form: {
-          title: "title",
-          author: "author",
-          content: "content",
-          keyword: "keyword",
-          radioButtons: {
-            trueValue: "yes",
-            falseValue: "no"
-          },
-          buttons: {
-            addNewKeyword: "add new keyword",
-            submit: "submit",
-            clear: "clear"
-          },
-          texts: {
-            noteImportanceText: "Is this note important?",
-            addKeywordsText: "Add keywors one by one:",
-            keywordsAddedText: "Keywords added:"
-          }
-        },
-        table: {
-          header: {
-            product: "Product",
-            quantity: "Quantity",
-            unit: "Unit",
-            category: "Category",
-            purchased: "Purchased",
-            actions: "Actions"
-          },
-          editTabelDialog: {
-            title: "Edit Grocery List",
-            purchased: "Purchased"
-          }
-        }
-      }
-}
+  titles: {
+    appTitle: "Adelin's Notes Keeper",
+  },
+
+  common: {
+    notes: "notes",
+    groceryList: "grocery list",
+  },
+
+  buttons: {
+    hideForm: "Hide form",
+    addNote: "Add note",
+    addNewKeyword: "add new keyword",
+    confirm: "confirm",
+    submit: "submit",
+    save: "save",
+    clear: "clear",
+    cancel: "cancel",
+    yes: "yes",
+    no: "no",
+  },
+
+  tableHeaders: {
+    product: "Product",
+    quantity: "Quantity",
+    unit: "Unit",
+    category: "Category",
+    purchased: "Purchased",
+    actions: "Actions",
+  },
+
+  placeholders: {
+    title: "title",
+    author: "author",
+    content: "content",
+    keyword: "keyword",
+  },
+
+  labels: {
+    noteImportanceQuestion: "Is this note important?",
+    requirementToAddKeywords: "Add keywors one by one:",
+    keywordsAdded: "Keywords added:",
+    keywords: "Keywords",
+    product: "Product",
+    quantity: "Quantity",
+    unit: "Unit",
+    purchased: "Purchased",
+  },
+
+  rules: {
+    minimumLength:
+      "Minimum length for {fieldName} is {minimumNumber} characters",
+    maximumLength:
+      "Maximum length for {fieldName} is {maximumNumber} characters",
+    requirementToChooseName: "You must choose a name from the list",
+  },
+
+  eventMessages: {
+    groceryListLoaded: "The initial grocery list has been loaded",
+    notesListLoaded: "The initial notes list has been loaded",
+    nameListLoaded: "The initial name list has been loaded",
+  },
+};

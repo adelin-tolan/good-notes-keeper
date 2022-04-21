@@ -3,10 +3,8 @@
     <the-header />
     <div :class="{ 'home-page-background': !isNotHomeRoute }">
       <v-tabs class="tabs mx-auto my-4 pl-6" v-if="isNotHomeRoute">
-        <v-tab to="/notes">{{ $t("message.features.notes") }}</v-tab>
-        <v-tab to="/grocery-list">{{
-          $t("message.features.groceryList")
-        }}</v-tab>
+        <v-tab to="/notes">{{ $t("common.notes") }}</v-tab>
+        <v-tab to="/grocery-list">{{ $t("common.groceryList") }}</v-tab>
       </v-tabs>
       <router-view class="main-display py-6 mx-auto"></router-view>
     </div>

@@ -24,11 +24,7 @@
       </v-row>
 
       <v-btn color="success" dark @click="toggleFormVisibility" class="my-6">
-        {{
-          isFormVisible
-            ? $t("message.buttons.hideForm")
-            : $t("message.buttons.addNote")
-        }}
+        {{ isFormVisible ? $t("buttons.hideForm") : $t("buttons.addNote") }}
       </v-btn>
 
       <add-note-form
@@ -57,7 +53,8 @@ import { bus } from "../main";
 import { useNotesStore } from "../stores/notes";
 import { mapState, mapActions } from "pinia";
 
-import DateMethods from "../global-methods/date-methods";
+import DatePatterns from "../constants/date-patterns";
+import ConvertDateUtils from "../utils/convert-date-utils";
 
 export default {
   name: "NotesContainer",
@@ -87,7 +84,11 @@ export default {
 
     notesDatesList() {
       return this.notesList.map((note) =>
-        DateMethods.convertApiDateToYearMonthDayPattern(note.noteDateCreated)
+        ConvertDateUtils.formatDate(
+          DatePatterns.YEAR_MONTH_DAY_PATTERN,
+          DatePatterns.API_DATE_PATTERN,
+          note.noteDateCreated
+        )
       );
     },
   },
@@ -96,7 +97,7 @@ export default {
     try {
       this.isLoading = true;
       this.fetchNotesList();
-      bus.$emit("api_success", "The initial notes list has been loaded");
+      bus.$emit("api_success", this.$t("eventMessages.notesListLoaded"));
     } catch (err) {
       console.error(err);
       bus.$emit("api_error", err.message);
@@ -131,7 +132,9 @@ export default {
         noteTitle: title || "empty",
         noteContent: content || "empty",
         noteAuthor: author || "empty",
-        noteDateCreated: DateMethods.formatCurrentDateInApiDateTimePattern,
+        noteDateCreated: ConvertDateUtils.formatDate(
+          DatePatterns.API_DATE_TIME_PATTERN
+        ),
         isHighImportance: Boolean(isHighImportance),
         keywords: keywordsList,
       });
@@ -165,10 +168,14 @@ export default {
         datesAndValuesList.push({
           date:
             chartVersion === 5
-              ? DateMethods.convertDateFromYearMonthDayPatternToUnixTimestamp(
-                  date
+              ? ConvertDateUtils.convertDateToUnixTimestamp(
+                  date,
+                  DatePatterns.YEAR_MONTH_DAY_PATTERN
                 )
-              : DateMethods.convertDayjsToNativeDateObject(date),
+              : ConvertDateUtils.convertToNativeDateObject(
+                  date,
+                  DatePatterns.YEAR_MONTH_DAY_PATTERN
+                ),
           value: numberOfNotes,
         });
       });

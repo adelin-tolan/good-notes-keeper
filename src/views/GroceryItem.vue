@@ -1,10 +1,18 @@
 <template>
   <v-card class="mx-auto" max-width="344">
     <v-card-text>
-      <p class="text-h4 text--primary">Product: {{ product.name }}</p>
-      <p class="text--primary">Quantity: {{ product.quantity }}</p>
-      <p class="text--primary">Unit: {{ product.unitMeasure }}</p>
-      <p class="text--primary">Prchased: {{ product.isPurchased }}</p>
+      <p class="text-h4 text--primary">
+        {{ $t("labels.product") }}: {{ product.name }}
+      </p>
+      <p class="text--primary">
+        {{ $t("labels.quantity") }}: {{ product.quantity }}
+      </p>
+      <p class="text--primary">
+        {{ $t("labels.unit") }}: {{ product.unitMeasure }}
+      </p>
+      <p class="text--primary">
+        {{ $t("labels.purchased") }}: {{ product.isPurchased }}
+      </p>
     </v-card-text>
   </v-card>
 </template>

@@ -15,8 +15,8 @@
             <v-icon v-if="note.isHighImportance"> mdi-file-alert </v-icon>
             <v-icon v-else> mdi-file </v-icon>
           </span>
-          <span v-if="keywordsListString"
-            >Keywords: {{ keywordsListString }}.</span
+          <span v-if="keywordsString">
+            {{ $t("labels.keywords") }}: {{ keywordsString }}.</span
           >
         </div>
       </v-card-text>
@@ -25,7 +25,8 @@
 </template>
 
 <script>
-import DateMethods from "../global-methods/date-methods";
+import ConvertDateUtils from "../utils/convert-date-utils";
+import DatePatterns from "../constants/date-patterns";
 
 export default {
   name: "NoteItem",
@@ -59,14 +60,18 @@ export default {
   },
 
   computed: {
-    keywordsListString() {
+    keywordsString() {
       return this.note.keywords.join(", ");
     },
   },
 
   methods: {
     parseDateFromApiToNoteItemPattern(date) {
-      return DateMethods.convertApiDateTimeToNoteDateTimePattern(date);
+      return ConvertDateUtils.formatDate(
+        DatePatterns.NOTE_ITEM_DATE_TIME_PATTERN,
+        DatePatterns.API_DATE_TIME_PATTERN,
+        date
+      );
     },
   },
 };

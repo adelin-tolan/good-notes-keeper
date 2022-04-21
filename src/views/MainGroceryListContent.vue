@@ -77,6 +77,8 @@ import ChartContainer from "../components/ChartContainer";
 import DonutChart4 from "../components/DonutChart4";
 import DonutChart5 from "../components/DonutChart5";
 
+import { bus } from "../main";
+
 import { useGroceryStore } from "../stores/grocery";
 import { mapState, mapActions } from "pinia";
 
@@ -94,27 +96,27 @@ export default {
     return {
       headers: [
         {
-          text: this.$t("message.table.header.product"),
+          text: this.$t("tableHeaders.product"),
           align: "start",
           value: "name",
         },
         {
-          text: this.$t("message.table.header.quantity"),
+          text: this.$t("tableHeaders.quantity"),
           value: "quantity",
         },
         {
-          text: this.$t("message.table.header.unit"),
+          text: this.$t("tableHeaders.unit"),
           value: "unitMeasure",
         },
         {
-          text: this.$t("message.table.header.category"),
+          text: this.$t("tableHeaders.category"),
           value: "category",
         },
         {
-          text: this.$t("message.table.header.purchased"),
+          text: this.$t("tableHeaders.purchased"),
           value: "isPurchased",
         },
-        { text: this.$t("message.table.header.actions"), value: "actions" },
+        { text: this.$t("tableHeaders.actions"), value: "actions" },
       ],
       isEditGroceryDialogOpen: false,
       isConfirmationDialogOpen: false,
@@ -160,7 +162,13 @@ export default {
   },
 
   created() {
-    this.fetchGroceryList();
+    try {
+      this.fetchGroceryList();
+      bus.$emit("api_success", this.$t("eventMessages.groceryListLoaded"));
+    } catch (err) {
+      console.error(err);
+      bus.$emit("api_error", err.message);
+    }
   },
 
   methods: {

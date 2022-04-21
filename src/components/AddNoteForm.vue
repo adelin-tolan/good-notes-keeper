@@ -7,7 +7,7 @@
             v-model="title"
             :rules="titleRules"
             :counter="20"
-            :label="$t('message.form.title')"
+            :label="$t('placeholders.title')"
             required
           ></v-text-field>
 
@@ -15,7 +15,7 @@
             v-model="author"
             :rules="authorRules"
             :items="authorsList"
-            :label="$t('message.form.author')"
+            :label="$t('placeholders.author')"
             dense
           ></v-select>
         </v-col>
@@ -24,7 +24,7 @@
             v-model="content"
             :rules="contentRules"
             :counter="200"
-            :label="$t('message.form.content')"
+            :label="$t('placeholders.content')"
             clearable
             clear-icon="mdi-close-circle"
           ></v-textarea>
@@ -34,38 +34,30 @@
       <v-row>
         <v-col cols="12" sm="6">
           <v-radio-group v-model="isHighImportance">
-            <div>{{ $t("message.form.texts.noteImportanceText") }}</div>
-            <v-radio
-              value="1"
-              :label="$t(`message.form.radioButtons.trueValue`)"
-            >
-            </v-radio>
-            <v-radio
-              value=""
-              :label="$t('message.form.radioButtons.falseValue')"
-            >
-            </v-radio>
+            <div>{{ $t("labels.noteImportanceQuestion") }}</div>
+            <v-radio value="1" :label="$t(`buttons.yes`)"> </v-radio>
+            <v-radio value="" :label="$t('buttons.no')"> </v-radio>
           </v-radio-group>
         </v-col>
         <v-col cols="12" sm="6">
-          <div>{{ $t("message.form.texts.addKeywordsText") }}</div>
+          <div>{{ $t("labels.requirementToAddKeywords") }}</div>
           <v-text-field
             v-model="keyword"
             :rules="keywordsRules"
             :counter="15"
-            label="Keyword"
+            :label="$t('placeholders.keyword')"
             required
           ></v-text-field>
           <v-btn
             class="mr-4 text-lowercase"
             :disabled="isAddNewKeywordButtonDisabled"
-            @click.prevent="handleNewKeywordAdd"
+            @click.prevent="handleNewKeywordAddClick"
           >
-            {{ $t("message.form.buttons.addNewKeyword") }}
+            {{ $t("buttons.addNewKeyword") }}
           </v-btn>
-          <div v-if="keywordsListString !== ''" class="mt-3">
-            {{ $t("message.form.texts.keywordsAddedText") }}
-            {{ keywordsListString }}.
+          <div v-if="keywordsString !== ''" class="mt-3">
+            {{ $t("labels.keywordsAdded") }}
+            {{ keywordsString }}.
           </div>
         </v-col>
       </v-row>
@@ -75,12 +67,12 @@
       <v-btn
         class="mr-4"
         :disabled="!isFormValid"
-        @click.prevent="handleNewNoteAdd"
+        @click.prevent="handleNewNoteAddClick"
       >
-        <strong>{{ $t("message.form.buttons.submit") }}</strong>
+        <strong>{{ $t("buttons.submit") }}</strong>
       </v-btn>
-      <v-btn @click="handleFormReset">
-        <strong> {{ $t("message.form.buttons.clear") }} </strong>
+      <v-btn @click="handleFormResetClick">
+        <strong> {{ $t("buttons.clear") }} </strong>
       </v-btn>
     </v-form>
 
@@ -112,20 +104,39 @@ export default {
       keywordsList: [],
       isLoading: false,
       titleRules: [
-        (v) => v.length >= 3 || "Minimum length for title is 3 characters",
-        (v) => v.length <= 20 || "Maximum length for title is 20 characters",
+        (v) =>
+          v.length >= 3 ||
+          this.$t("rules.minimumLength", {
+            minimumNumber: 3,
+            fieldName: "title",
+          }),
+        (v) =>
+          v.length <= 20 ||
+          this.$t("rules.maximumLength", {
+            maximumNumber: 20,
+            fieldName: "title",
+          }),
       ],
       contentRules: [
-        (v) => v.length >= 10 || "Minimum length for content is 10 characters",
         (v) =>
-          v.length <= 200 || "Maximum length for content is 200 characters",
+          v.length >= 10 ||
+          this.$t("rules.minimumLength", {
+            minimumNumber: 10,
+            fieldName: "content",
+          }),
+        (v) =>
+          v.length <= 200 ||
+          this.$t("rules.maximumLength", {
+            maximumNumber: 200,
+            fieldName: "content",
+          }),
       ],
-      authorRules: [(v) => !!v || "You must choose a name from the list"],
+      authorRules: [(v) => !!v || this.$t("rules.requirementToChooseName")],
     };
   },
 
   computed: {
-    keywordsListString() {
+    keywordsString() {
       return this.keywordsList.join(", ");
     },
     isAddNewKeywordButtonDisabled() {
@@ -144,7 +155,7 @@ export default {
       );
       const fetchedAuthorsList = await response.json();
       this.authorsList = fetchedAuthorsList.map((author) => author.name);
-      bus.$emit("api_success", "The initial name list has been loaded");
+      bus.$emit("api_success", this.$t("eventMessages.nameListLoaded"));
     } catch (err) {
       console.error(err);
       bus.$emit("api_error", err.message);
@@ -156,7 +167,7 @@ export default {
   },
 
   methods: {
-    handleFormReset() {
+    handleFormResetClick() {
       this.title = "";
       this.content = "";
       this.author = "";
@@ -164,7 +175,7 @@ export default {
       this.keywordsList = [];
     },
 
-    handleNewNoteAdd() {
+    handleNewNoteAddClick() {
       if (this.$refs.form.validate()) {
         this.$emit(
           "on-submit-button-click",
@@ -174,10 +185,10 @@ export default {
           this.isHighImportance,
           this.keywordsList
         );
-        this.handleFormReset();
+        this.handleFormResetClick();
       }
     },
-    handleNewKeywordAdd() {
+    handleNewKeywordAddClick() {
       if (this.keyword) {
         this.keywordsList.push(this.keyword);
         this.$emit("on-add-new-keyword-button-click", this.keyword);
