@@ -123,7 +123,7 @@ export default {
       productToEdit: {},
       indexOfProductToEdit: null,
       chartTitle: this.$t("titles.groceryChartTitle"),
-      confirmationQuestion: "Are you sure you bought this product?",
+      confirmationQuestion: this.$t("labels.confirmationQuestion"),
     };
   },
 

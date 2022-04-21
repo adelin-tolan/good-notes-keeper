@@ -43,6 +43,7 @@ export const englishVersion = {
 
   labels: {
     noteImportanceQuestion: "Is this note important?",
+    confirmationQuestion: "Are you sure you bought this product?",
     requirementToAddKeywords: "Add keywors one by one:",
     keywordsAdded: "Keywords added:",
     keywords: "Keywords",
