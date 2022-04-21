@@ -97,7 +97,10 @@ export default {
     try {
       this.isLoading = true;
       this.fetchNotesList();
-      bus.$emit("api_success", this.$t("eventMessages.notesListLoaded"));
+      bus.$emit(
+        "api_success",
+        this.$t("eventMessages.initialListLoaded", { listName: "notes" })
+      );
     } catch (err) {
       console.error(err);
       bus.$emit("api_error", err.message);

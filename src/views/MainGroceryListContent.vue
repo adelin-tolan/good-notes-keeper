@@ -164,7 +164,10 @@ export default {
   created() {
     try {
       this.fetchGroceryList();
-      bus.$emit("api_success", this.$t("eventMessages.groceryListLoaded"));
+      bus.$emit(
+        "api_success",
+        this.$t("eventMessages.initialListLoaded", { listName: "grocery" })
+      );
     } catch (err) {
       console.error(err);
       bus.$emit("api_error", err.message);

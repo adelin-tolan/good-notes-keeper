@@ -57,8 +57,6 @@ export const englishVersion = {
   },
 
   eventMessages: {
-    groceryListLoaded: "The initial grocery list has been loaded",
-    notesListLoaded: "The initial notes list has been loaded",
-    nameListLoaded: "The initial name list has been loaded",
+    initialListLoaded: "The initial {listName} list has been loaded",
   },
 };

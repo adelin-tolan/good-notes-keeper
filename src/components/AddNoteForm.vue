@@ -155,7 +155,10 @@ export default {
       );
       const fetchedAuthorsList = await response.json();
       this.authorsList = fetchedAuthorsList.map((author) => author.name);
-      bus.$emit("api_success", this.$t("eventMessages.nameListLoaded"));
+      bus.$emit(
+        "api_success",
+        this.$t("eventMessages.initialListLoaded", { listName: "name" })
+      );
     } catch (err) {
       console.error(err);
       bus.$emit("api_error", err.message);
