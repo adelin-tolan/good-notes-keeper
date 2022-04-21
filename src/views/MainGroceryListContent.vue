@@ -157,7 +157,6 @@ export default {
     },
 
     textContainingGroceriesNumber() {
-      // return `Total: ${this.groceryList.length} groceries`;
       return this.$t("titles.groceryChartSubtitle", {
         groceriesNumber: this.groceryList.length,
       });
