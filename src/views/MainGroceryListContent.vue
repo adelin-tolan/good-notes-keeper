@@ -137,7 +137,6 @@ export default {
           ? numberOfProductsPerCategory[product.category]++
           : (numberOfProductsPerCategory[product.category] = 1)
       );
-      console.log(numberOfProductsPerCategory);
       return numberOfProductsPerCategory;
     },
 

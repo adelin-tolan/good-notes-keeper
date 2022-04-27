@@ -48,7 +48,7 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .footer-row {
   max-width: 1170px;
 }

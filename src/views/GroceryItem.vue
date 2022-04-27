@@ -21,8 +21,11 @@
 import { mapState } from "pinia";
 import { useGroceryStore } from "@/stores/grocery";
 
+import { productMixin } from "../mixins/productMixin";
+
 export default {
   name: "GroceryItem",
+  mixins: [productMixin],
 
   computed: {
     ...mapState(useGroceryStore, ["groceryList"]),
