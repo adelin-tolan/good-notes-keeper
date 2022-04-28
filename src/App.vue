@@ -2,10 +2,43 @@
   <v-app>
     <the-header />
     <div :class="{ 'home-page-background': !isNotHomeRoute }">
-      <v-tabs class="tabs mx-auto my-4 pl-6" v-if="isNotHomeRoute">
-        <v-tab to="/notes">{{ $t("common.notes") }}</v-tab>
-        <v-tab to="/grocery-list">{{ $t("common.groceryList") }}</v-tab>
-      </v-tabs>
+      <v-app-bar>
+        <v-app-bar-nav-icon
+          @click="isDrawerOpen = true"
+          class="d-flex d-md-none"
+        ></v-app-bar-nav-icon>
+
+        <v-tabs
+          class="tabs d-none d-md-flex mx-auto my-4 pl-6"
+          v-if="isNotHomeRoute"
+        >
+          <v-tab to="/notes">{{ $t("common.notes") }}</v-tab>
+          <v-tab to="/grocery-list">{{ $t("common.groceryList") }}</v-tab>
+        </v-tabs>
+      </v-app-bar>
+
+      <v-navigation-drawer v-model="isDrawerOpen" absolute temporary>
+        <v-list nav dense>
+          <v-list-item-group>
+            <router-link to="/notes">
+              <v-list-item>
+                <v-list-item-title>
+                  {{ $t("common.notes") }}
+                </v-list-item-title>
+              </v-list-item>
+            </router-link>
+
+            <router-link to="/grocery-list">
+              <v-list-item>
+                <v-list-item-title>
+                  {{ $t("common.groceryList") }}
+                </v-list-item-title>
+              </v-list-item>
+            </router-link>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
+
       <router-view class="main-display py-6 mx-auto"></router-view>
     </div>
     <the-footer />
@@ -34,6 +67,7 @@ export default {
       isSnackbarOpen: false,
       snackbarText: "",
       snackbarColor: "",
+      isDrawerOpen: false,
     };
   },
 
@@ -72,6 +106,10 @@ $home-page-bg-color: lightgrey;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+aside a {
+  text-decoration: none;
 }
 
 .main-display,
