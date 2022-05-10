@@ -8,15 +8,12 @@ import HomePage from "./views/HomePage";
 import MainNotesContent from "./views/MainNotesContent";
 import MainGroceryListContent from "./views/MainGroceryListContent";
 import GroceryItem from "./views/GroceryItem";
+import TestSkeletonLoader from "./views/TestSkeletonLoader";
+import TestExpansionPanel from "./views/TestExpansionPanel";
 
 import { englishVersion } from "./locales/en.js";
 
 import { createPinia, PiniaVuePlugin } from "pinia";
-
-import vSelect from "vue-select";
-import "vue-select/dist/vue-select.css";
-
-Vue.component("v-select", vSelect);
 
 Vue.use(PiniaVuePlugin);
 const pinia = createPinia();
@@ -38,6 +35,16 @@ const routes = [
     path: "/grocery-list/:groceryItemId",
     name: "Grocery Item",
     component: GroceryItem,
+  },
+  {
+    path: "/test-skeleton",
+    name: "Test Skeleton Loader",
+    component: TestSkeletonLoader,
+  },
+  {
+    path: "/test-expansion",
+    name: "Test Expansion Panel",
+    component: TestExpansionPanel,
   },
 ];
 

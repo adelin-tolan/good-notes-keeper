@@ -2,7 +2,7 @@
   <div>
     <v-app-bar color="success accent-4" dark class="py-2">
       <v-container fixed fluid class="px-0 py-0">
-        <v-row class="header-row mx-auto">
+        <v-row class="header-row px-3 mx-auto">
           <router-link to="/">
             <v-img
               max-height="40"
@@ -23,20 +23,26 @@
         </v-row>
       </v-container>
     </v-app-bar>
+
+    <the-menu />
   </div>
 </template>
 
 <script>
+import TheMenu from "./TheMenu";
+
 export default {
   name: "TheHeader",
 
-  data() {
-    return {};
+  components: {
+    TheMenu,
   },
 
   methods: {
     handleHomeRouterLink() {
-      this.$router.push("/");
+      if (this.$route.path !== "/") {
+        this.$router.push("/");
+      }
     },
   },
 };

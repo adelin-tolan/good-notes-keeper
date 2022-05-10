@@ -2,18 +2,14 @@
   <div>
     <v-container fluid class="container">
       <v-row justify="center">
-        <router-link to="/notes">
+        <router-link
+          v-for="(card, index) in cardsList"
+          :to="card.path"
+          :key="index"
+        >
           <v-card tile class="card">
             <v-card-title class="text-capitalize">
-              {{ $t("common.notes") }}
-            </v-card-title>
-          </v-card>
-        </router-link>
-
-        <router-link to="/grocery-list">
-          <v-card tile class="card">
-            <v-card-title class="text-capitalize">
-              {{ $t("common.groceryList") }}
+              {{ $t(`menuLabels.${card.name}`) }}
             </v-card-title>
           </v-card>
         </router-link>
@@ -23,9 +19,16 @@
 </template>
 
 <script>
+import { menuItemsList } from "../utils/menuItems";
+
 export default {
   name: "HomePage",
   components: {},
+  data() {
+    return {
+      cardsList: menuItemsList,
+    };
+  },
 };
 </script>
 

@@ -7,9 +7,9 @@ export const englishVersion = {
     groceryChartSubtitle: "Total: {groceriesNumber} groceries"
   },
 
-  common: {
-    notes: "notes",
-    groceryList: "grocery list",
+  menuLabels: {
+    notes: "Notes",
+    groceryList: "Grocery list",
   },
 
   buttons: {
