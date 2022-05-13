@@ -8,8 +8,6 @@ import HomePage from "./views/HomePage";
 import MainNotesContent from "./views/MainNotesContent";
 import MainGroceryListContent from "./views/MainGroceryListContent";
 import GroceryItem from "./views/GroceryItem";
-import TestSkeletonLoader from "./views/TestSkeletonLoader";
-import TestExpansionPanel from "./views/TestExpansionPanel";
 
 import { englishVersion } from "./locales/en.js";
 
@@ -36,16 +34,6 @@ const routes = [
     name: "Grocery Item",
     component: GroceryItem,
   },
-  {
-    path: "/test-skeleton",
-    name: "Test Skeleton Loader",
-    component: TestSkeletonLoader,
-  },
-  {
-    path: "/test-expansion",
-    name: "Test Expansion Panel",
-    component: TestExpansionPanel,
-  },
 ];
 
 export const router = new VueRouter({ routes, base: "/", mode: "history" });
@@ -61,10 +49,11 @@ const i18n = new VueI18n({
 
 export const bus = new Vue();
 
-new Vue({
+const newLocal = {
   vuetify,
   router,
   i18n,
   pinia,
   render: (h) => h(App),
-}).$mount("#app");
+};
+new Vue(newLocal).$mount("#app");

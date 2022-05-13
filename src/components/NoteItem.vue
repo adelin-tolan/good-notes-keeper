@@ -1,8 +1,10 @@
 <template>
-  <v-col cols="12" sm="6" class="d-flex align-stretch">
-    <v-card style="width: 100%" elevation="2" outlined>
+  <v-col class="d-flex align-stretch" cols="12" sm="6">
+    <v-card elevation="2" outlined width="100%">
       <v-card-text>
-        <p class="text-h6 text--primary">{{ note.noteTitle }}</p>
+        <div class="text-h6 text--primary">
+          {{ note.noteTitle }}
+        </div>
         <div class="text--primary">
           {{ note.noteContent }}
         </div>
@@ -16,8 +18,8 @@
             <v-icon v-else> mdi-file </v-icon>
           </span>
           <span v-if="keywordsString">
-            {{ $t("labels.keywords") }}: {{ keywordsString }}.</span
-          >
+            {{ $t("labels.keywords") }}: {{ keywordsString }}.
+          </span>
         </div>
       </v-card-text>
     </v-card>
@@ -32,29 +34,35 @@ export default {
   name: "NoteItem",
   props: {
     note: {
-      noteTitle: {
-        type: String,
-        required: true,
-      },
-      noteContent: {
-        type: String,
-        required: true,
-      },
-      noteAuthor: {
-        type: String,
-        required: true,
-      },
-      noteDateCreated: {
-        type: String,
-        required: true,
-      },
-      isHighImportance: {
-        type: Boolean,
-        required: true,
-      },
-      keywords: {
-        type: Array,
-        required: true,
+      type: Object,
+      required: true,
+      default() {
+        return {
+          noteTitle: {
+            type: String,
+            required: true,
+          },
+          noteContent: {
+            type: String,
+            required: true,
+          },
+          noteAuthor: {
+            type: String,
+            required: true,
+          },
+          noteDateCreated: {
+            type: String,
+            required: true,
+          },
+          isHighImportance: {
+            type: Boolean,
+            required: true,
+          },
+          keywords: {
+            type: Array,
+            required: true,
+          },
+        };
       },
     },
   },
@@ -78,7 +86,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-card__text {
+.theme--light.v-application {
   .text-h6 {
     &:hover {
       color: rgba(0, 0, 0, 0.6) !important;

@@ -1,5 +1,5 @@
 <template>
-  <div class="line-chart-5" ref="chartdiv5"></div>
+  <div ref="chartdiv5" class="line-chart-5" />
 </template>
 
 <script>

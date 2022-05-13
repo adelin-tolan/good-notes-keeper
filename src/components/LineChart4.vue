@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="line-chart-4" ref="chartdiv4"></div>
+    <div ref="chartdiv4" class="line-chart-4" />
   </div>
 </template>
 

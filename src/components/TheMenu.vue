@@ -1,18 +1,18 @@
 <template>
   <div v-if="!isHomeRoute">
     <v-app-bar>
-      <v-container fluid class="d-flex justify-center">
-        <v-row dense class="menu-row px-5">
+      <v-container class="d-flex justify-center" fluid>
+        <v-row class="menu-row px-5" dense>
           <v-col class="flex-grow-0">
             <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
+              <template #activator="{ on, attrs }">
                 <v-btn
-                  icon
                   class="my-auto"
                   color="success accent-4"
-                  @click="handleBackClick"
+                  icon
                   v-bind="attrs"
                   v-on="on"
+                  @click="handleBackClick"
                 >
                   <v-icon>mdi-arrow-left</v-icon>
                 </v-btn>
@@ -24,16 +24,17 @@
             <v-app-bar-nav-icon
               v-if="$vuetify.breakpoint.mobile"
               @click="handleDrawerOpenClick"
-            ></v-app-bar-nav-icon>
+            />
           </v-col>
           <v-col>
             <v-tabs v-if="!$vuetify.breakpoint.mobile" class="tabs my-0">
               <v-tab
                 v-for="(tab, index) in menuItemsList"
-                :to="tab.path"
                 :key="index"
-                >{{ $t(`menuLabels.${tab.name}`) }}</v-tab
+                :to="tab.path"
               >
+                {{ $t(`menuLabels.${tab.name}`) }}
+              </v-tab>
             </v-tabs>
           </v-col>
         </v-row>
@@ -47,17 +48,17 @@
       temporary
     >
       <v-row>
-        <v-spacer></v-spacer>
-        <v-btn icon class="mt-4 mr-4 mb-2" @click="handleDrawerCloseClick">
+        <v-spacer />
+        <v-btn class="mt-4 mr-4 mb-2" icon @click="handleDrawerCloseClick">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-row>
-      <v-list nav dense>
+      <v-list dense nav>
         <v-list-item-group>
           <router-link
             v-for="(tab, index) in menuItemsList"
-            :to="tab.path"
             :key="index"
+            :to="tab.path"
           >
             <v-list-item
               active-class="highlighted"
@@ -113,8 +114,8 @@ export default {
 aside a {
   text-decoration: none;
 }
-.highlighted {
-  color: #1976d2 !important;
+.theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).highlighted {
+  color: #1976d2;
   background: #e4effa;
 }
 .menu-row {

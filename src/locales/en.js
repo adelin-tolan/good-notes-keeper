@@ -4,7 +4,8 @@ export const englishVersion = {
     notesChartTitle: "Notes chart by date",
     notesChartSubtitle: "notes/day",
     groceryChartTitle: "Groceries category",
-    groceryChartSubtitle: "Total: {groceriesNumber} groceries"
+    groceryChartSubtitle: "Total: {groceriesNumber} groceries",
+    groceryEditTitle: "Edit grocery",
   },
 
   menuLabels: {

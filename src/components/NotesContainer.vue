@@ -2,14 +2,14 @@
   <div>
     <v-container>
       <v-row>
-        <v-col cols="12" md="6" class="pl-md-3 pr-md-3 px-3">
-          <chart-container :title="chartTitle" :subtitle="chartSubtitle">
-            <line-chart-4 :chartData="datesAndNumberOfNotesPerDayList(4)" />
+        <v-col class="pl-md-3 pr-md-3 px-3" cols="12" md="6">
+          <chart-container :subtitle="chartSubtitle" :title="chartTitle">
+            <line-chart-4 :chart-data="datesAndNumberOfNotesPerDayList(4)" />
           </chart-container>
         </v-col>
-        <v-col cols="12" md="6" class="pr-md-3 pl-md-3 px-3">
-          <chart-container :title="chartTitle" :subtitle="chartSubtitle">
-            <line-chart-5 :chartData="datesAndNumberOfNotesPerDayList(5)" />
+        <v-col class="pr-md-3 pl-md-3 px-3" cols="12" md="6">
+          <chart-container :subtitle="chartSubtitle" :title="chartTitle">
+            <line-chart-5 :chart-data="datesAndNumberOfNotesPerDayList(5)" />
           </chart-container>
         </v-col>
       </v-row>
@@ -18,25 +18,24 @@
       <v-row>
         <note-item
           v-for="(note, index) in sortedNotesListByImportance"
-          :note="note"
           :key="index"
-        ></note-item>
+          :note="note"
+        />
       </v-row>
 
-      <v-btn color="success" dark @click="toggleFormVisibility" class="my-6">
+      <v-btn class="my-6" color="success" dark @click="toggleFormVisibility">
         {{ isFormVisible ? $t("buttons.hideForm") : $t("buttons.addNote") }}
       </v-btn>
 
       <add-note-form
         v-if="isFormVisible"
         @on-add-new-keyword-button-click="handleNewKeywordSubmit"
-        @on-submit-button-click="handleFormSubmit"
         @on-clear-button-click="handleFormReset"
-      >
-      </add-note-form>
+        @on-submit-button-click="handleFormSubmit"
+      />
 
       <v-overlay :value="isLoading">
-        <v-progress-circular indeterminate size="64"></v-progress-circular>
+        <v-progress-circular indeterminate size="64" />
       </v-overlay>
     </v-container>
   </div>

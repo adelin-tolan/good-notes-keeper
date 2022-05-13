@@ -1,35 +1,36 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12" md="6" class="pl-md-9 pr-md-3 px-9">
+      <v-col class="pl-md-9 pr-md-3 px-9" cols="12" md="6">
         <chart-container
-          :title="chartTitle"
           :subtitle="textContainingGroceriesNumber"
+          :title="chartTitle"
         >
-          <donut-chart-4 :chartData="numberOfProductsPerCategoryList" />
+          <donut-chart-4 :chart-data="numberOfProductsPerCategoryList" />
         </chart-container>
       </v-col>
-      <v-col cols="12" md="6" class="pr-md-9 pl-md-3 px-9">
+      <v-col class="pr-md-9 pl-md-3 px-9" cols="12" md="6">
         <chart-container
-          :title="chartTitle"
           :subtitle="textContainingGroceriesNumber"
+          :title="chartTitle"
         >
-          <donut-chart-5 :chartData="numberOfProductsPerCategoryList" />
+          <donut-chart-5 :chart-data="numberOfProductsPerCategoryList" />
         </chart-container>
       </v-col>
     </v-row>
 
     <v-data-table
+      class="elevation-1 my-6 mx-6"
       :headers="headers"
+      :item-class="addClassToPurchasedProductsTableRows"
       :items="groceryList"
       :items-per-page="10"
-      :item-class="addClassToPurchasedProductsTableRows"
-      class="elevation-1 my-6 mx-6"
     >
       <template #[`item.name`]="{ item }">
         <router-link
           :to="{ name: 'Grocery Item', params: { groceryItemId: item.id } }"
-          >{{ item.name }}
+        >
+          {{ item.name }}
         </router-link>
       </template>
 
@@ -38,8 +39,7 @@
           v-model="item.isPurchased"
           :disabled="item.isPurchased"
           @click.native.capture="handleConfirmationDialogOpen($event, item)"
-        >
-        </v-checkbox>
+        />
       </template>
       <template #[`item.actions`]="{ item }">
         <v-icon

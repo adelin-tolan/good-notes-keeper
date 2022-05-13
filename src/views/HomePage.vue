@@ -1,13 +1,13 @@
 <template>
   <div>
-    <v-container fluid class="container">
+    <v-container class="container" fluid>
       <v-row justify="center">
         <router-link
           v-for="(card, index) in cardsList"
-          :to="card.path"
           :key="index"
+          :to="card.path"
         >
-          <v-card tile class="card">
+          <v-card class="card" tile>
             <v-card-title class="text-capitalize">
               {{ $t(`menuLabels.${card.name}`) }}
             </v-card-title>

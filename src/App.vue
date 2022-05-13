@@ -2,11 +2,11 @@
   <v-app>
     <the-header />
     <div :class="{ 'home-page-background': isHomeRoute }">
-      <router-view class="main-display pa-6 mx-auto"></router-view>
+      <router-view class="main-display pa-6 mx-auto" />
     </div>
     <the-footer />
 
-    <v-snackbar :value="isSnackbarOpen" fixed centered :color="snackbarColor">
+    <v-snackbar centered :color="snackbarColor" fixed :value="isSnackbarOpen">
       {{ snackbarText }}
     </v-snackbar>
   </v-app>
@@ -76,7 +76,7 @@ $home-page-bg-color: lightgrey;
 .main-display,
 .tabs {
   width: 100%;
-  max-width: 1170px !important;
+  max-width: 1170px;
 }
 
 .main-display {
@@ -84,6 +84,6 @@ $home-page-bg-color: lightgrey;
 }
 
 .home-page-background {
-  background: $home-page-bg-color !important;
+  background: $home-page-bg-color;
 }
 </style>

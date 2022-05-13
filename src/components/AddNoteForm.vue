@@ -2,32 +2,32 @@
   <div>
     <v-form ref="form" v-model="isFormValid">
       <v-row>
-        <v-col cols="12" sm="6" class="d-flex flex-column">
+        <v-col class="d-flex flex-column" cols="12" sm="6">
           <v-text-field
             v-model="title"
-            :rules="titleRules"
             :counter="20"
             :label="$t('placeholders.title')"
             required
-          ></v-text-field>
+            :rules="titleRules"
+          />
 
           <v-select
             v-model="author"
-            :rules="authorRules"
+            dense
             :items="authorsList"
             :label="$t('placeholders.author')"
-            dense
-          ></v-select>
+            :rules="authorRules"
+          />
         </v-col>
         <v-col cols="12" sm="6">
           <v-textarea
             v-model="content"
-            :rules="contentRules"
+            clear-icon="mdi-close-circle"
+            clearable
             :counter="200"
             :label="$t('placeholders.content')"
-            clearable
-            clear-icon="mdi-close-circle"
-          ></v-textarea>
+            :rules="contentRules"
+          />
         </v-col>
       </v-row>
 
@@ -35,19 +35,19 @@
         <v-col cols="12" sm="6">
           <v-radio-group v-model="isHighImportance">
             <div>{{ $t("labels.noteImportanceQuestion") }}</div>
-            <v-radio value="1" :label="$t(`buttons.yes`)"> </v-radio>
-            <v-radio value="" :label="$t('buttons.no')"> </v-radio>
+            <v-radio :label="$t(`buttons.yes`)" value="1" />
+            <v-radio :label="$t('buttons.no')" value="" />
           </v-radio-group>
         </v-col>
         <v-col cols="12" sm="6">
           <div>{{ $t("labels.requirementToAddKeywords") }}</div>
           <v-text-field
             v-model="keyword"
-            :rules="keywordsRules"
             :counter="15"
             :label="$t('placeholders.keyword')"
             required
-          ></v-text-field>
+            :rules="keywordsRules"
+          />
           <v-btn
             class="mr-4 text-lowercase"
             :disabled="isAddNewKeywordButtonDisabled"
@@ -62,7 +62,7 @@
         </v-col>
       </v-row>
 
-      <v-divider class="my-6"></v-divider>
+      <v-divider class="my-6" />
 
       <v-btn
         class="mr-4"
@@ -77,12 +77,7 @@
     </v-form>
 
     <v-overlay :value="isLoading">
-      <v-progress-circular
-        indeterminate
-        color="green"
-        size="50"
-        width="8"
-      ></v-progress-circular>
+      <v-progress-circular color="green" indeterminate size="50" width="8" />
     </v-overlay>
   </div>
 </template>
@@ -204,11 +199,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-// ::v-deep {
-//   .v-menu__content {
-//     position: relative !important;
-//   }
-// }
-</style>

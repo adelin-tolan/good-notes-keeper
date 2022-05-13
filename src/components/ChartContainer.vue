@@ -1,9 +1,11 @@
 <template>
-  <v-card tile outlined class="pa-4">
-    <v-card-title class="mb-2">{{ title }}</v-card-title>
+  <v-card class="pa-4" outlined tile>
+    <v-card-title class="mb-2">
+      {{ title }}
+    </v-card-title>
     <v-card-subtitle>{{ subtitle }}</v-card-subtitle>
     <v-card-text>
-      <slot></slot>
+      <slot />
     </v-card-text>
   </v-card>
 </template>

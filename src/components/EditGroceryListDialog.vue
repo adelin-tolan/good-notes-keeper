@@ -1,45 +1,45 @@
 <template>
-  <v-dialog persistent max-width="600px" v-model="isDialogOpen">
+  <v-dialog v-model="isDialogOpen" max-width="600px" persistent>
     <v-card>
-      <v-toolbar style="background: rgb(0, 69, 124)" dark>{{
-        $t("dialog.groceryEditTitle")
-      }}</v-toolbar>
+      <v-toolbar color="rgb(0, 69, 124)" dark>
+        {{ $t("titles.groceryEditTitle") }}
+      </v-toolbar>
       <v-card-text>
         <v-container>
           <v-row class="mt-4">
-            <v-col cols="12" sm="6" md="4">
-              <v-text-field v-model="name" :label="$t('tableHeaders.product')">
-              </v-text-field>
+            <v-col cols="12" md="4" sm="6">
+              <v-text-field
+                v-model="name"
+                :label="$t('tableHeaders.product')"
+              />
             </v-col>
-            <v-col cols="12" sm="6" md="4">
+            <v-col cols="12" md="4" sm="6">
               <v-text-field
                 v-model="quantity"
                 :label="$t('tableHeaders.quantity')"
-              >
-              </v-text-field>
+              />
             </v-col>
-            <v-col cols="12" sm="6" md="4">
+            <v-col cols="12" md="4" sm="6">
               <v-text-field
                 v-model="unitMeasure"
                 :label="$t('tableHeaders.unit')"
-              >
-              </v-text-field>
+              />
             </v-col>
-            <v-col cols="12" sm="6" md="4"> </v-col>
-            <v-col cols="12" sm="6" md="4"> </v-col>
-            <v-col cols="12" sm="6" md="4" class="d-flex align-end">
+            <v-col cols="12" md="4" sm="6" />
+            <v-col cols="12" md="4" sm="6" />
+            <v-col class="d-flex align-end" cols="12" md="4" sm="6">
               <v-btn
+                class="rounded-0 py-5"
                 outlined
                 text
-                class="rounded-0 py-5"
                 @click="handleClickOnCancelButton"
               >
                 {{ $t("buttons.cancel") }}
               </v-btn>
               <v-btn
+                class="ml-2 rounded-0 py-5"
                 outlined
                 text
-                class="ml-2 rounded-0 py-5"
                 @click="handleClickOnSaveButton"
               >
                 {{ $t("buttons.save") }}
@@ -57,17 +57,23 @@ export default {
   name: "EditGroceryListDialog",
   props: {
     grocery: {
-      name: {
-        type: String,
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        required: true,
-      },
-      unitMeasure: {
-        type: String,
-        required: true,
+      type: Object,
+      required: true,
+      default() {
+        return {
+          name: {
+            type: String,
+            required: true,
+          },
+          quantity: {
+            type: Number,
+            required: true,
+          },
+          unitMeasure: {
+            type: String,
+            required: true,
+          },
+        };
       },
     },
 
@@ -118,8 +124,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-btn--outlined {
-  border: 2px solid #43a047 !important;
+.theme--light.v-btn.v-btn--outlined.v-btn--text {
+  border: 2px solid #43a047;
   text-transform: capitalize;
 }
 </style>

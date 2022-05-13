@@ -1,21 +1,23 @@
 <template>
   <div>
-    <v-app-bar color="success accent-4" dark class="py-2">
-      <v-container fixed fluid class="px-0 py-0">
+    <v-app-bar class="py-2" color="success accent-4" dark>
+      <v-container class="px-0 py-0" fixed fluid>
         <v-row class="header-row px-3 mx-auto">
           <router-link to="/">
             <v-img
               max-height="40"
               max-width="40"
               src="../assets/paper-logo.svg"
-            ></v-img>
+            />
           </router-link>
 
-          <v-spacer></v-spacer>
-          <v-toolbar-title @click="handleHomeRouterLink">{{
-            $t("titles.appTitle")
-          }}</v-toolbar-title>
-          <v-spacer></v-spacer>
+          <v-spacer />
+          <v-toolbar-title @click="handleHomeRouterLink">
+            {{
+              $t("titles.appTitle")
+            }}
+          </v-toolbar-title>
+          <v-spacer />
 
           <v-btn icon>
             <v-icon>mdi-logout</v-icon>
