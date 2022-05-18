@@ -47,7 +47,7 @@ export default {
     },
     product() {
       return this.groceryList.find(
-        (product) => product.id == this.currentRouteId
+        (product) => product.id === this.currentRouteId
       );
     },
   },

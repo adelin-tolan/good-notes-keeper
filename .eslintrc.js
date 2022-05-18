@@ -14,7 +14,7 @@ module.exports = {
   },
   rules: {
     "vue/order-in-components": [
-      "warn",
+      "error",
       {
         order: [
           "el",
@@ -54,36 +54,16 @@ module.exports = {
       },
     ],
     "vue/attributes-order": [
-      "warn",
+      "error",
       {
-        order: [
-          "DEFINITION",
-          "LIST_RENDERING",
-          "CONDITIONALS",
-          "RENDER_MODIFIERS",
-          "GLOBAL",
-          ["UNIQUE", "SLOT"],
-          "TWO_WAY_BINDING",
-          "OTHER_DIRECTIVES",
-          "OTHER_ATTR",
-          "EVENTS",
-          "CONTENT",
-        ],
         alphabetical: true,
       },
     ],
-    "vue/no-unused-properties": [
-      "warn",
-      {
-        groups: ["props"],
-        deepData: false,
-        ignorePublicMembers: false,
-      },
-    ],
+    "vue/no-unused-properties": "warn",
     "vue/no-use-computed-property-like-method": "error",
-    "vue/require-name-property": "warn",
+    "vue/require-name-property": "error",
     "vue/eqeqeq": [
-      "warn",
+      "error",
       "always",
       {
         null: "ignore",
@@ -93,14 +73,9 @@ module.exports = {
     "vue/no-static-inline-styles": [
       "warn",
       {
-        allowBinding: false,
+        allowBinding: true,
       },
     ],
-    "vue/max-attributes-per-line": [
-      "warn",
-      {
-        singleline: 5,
-      },
-    ],
+    "vue/max-attributes-per-line": "off",
   },
 };

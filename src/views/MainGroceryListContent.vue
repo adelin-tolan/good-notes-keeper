@@ -1,7 +1,11 @@
 <template>
   <div>
     <v-row>
-      <v-col class="pl-md-9 pr-md-3 px-9" cols="12" md="6">
+      <v-col
+        class="pl-md-9 pr-md-3 px-9"
+        cols="12"
+        md="6"
+      >
         <chart-container
           :subtitle="textContainingGroceriesNumber"
           :title="chartTitle"
@@ -9,7 +13,11 @@
           <donut-chart-4 :chart-data="numberOfProductsPerCategoryList" />
         </chart-container>
       </v-col>
-      <v-col class="pr-md-9 pl-md-3 px-9" cols="12" md="6">
+      <v-col
+        class="pr-md-9 pl-md-3 px-9"
+        cols="12"
+        md="6"
+      >
         <chart-container
           :subtitle="textContainingGroceriesNumber"
           :title="chartTitle"
@@ -28,7 +36,12 @@
     >
       <template #[`item.name`]="{ item }">
         <router-link
-          :to="{ name: 'Grocery Item', params: { groceryItemId: item.id } }"
+          :to="{
+            name: 'Grocery Item',
+            params: {
+              groceryItemId: item.id,
+            },
+          }"
         >
           {{ item.name }}
         </router-link>
@@ -84,6 +97,7 @@ import { mapState, mapActions } from "pinia";
 
 export default {
   name: "MainGroceryListContent",
+
   components: {
     EditGroceryListDialog,
     ConfirmationDialog,
@@ -116,7 +130,10 @@ export default {
           text: this.$t("tableHeaders.purchased"),
           value: "isPurchased",
         },
-        { text: this.$t("tableHeaders.actions"), value: "actions" },
+        {
+          text: this.$t("tableHeaders.actions"),
+          value: "actions",
+        },
       ],
       isEditGroceryDialogOpen: false,
       isConfirmationDialogOpen: false,
@@ -167,7 +184,9 @@ export default {
       this.fetchGroceryList();
       bus.$emit(
         "api_success",
-        this.$t("eventMessages.initialListLoaded", { listName: "grocery" })
+        this.$t("eventMessages.initialListLoaded", {
+          listName: "grocery",
+        })
       );
     } catch (err) {
       console.error(err);
@@ -180,7 +199,9 @@ export default {
 
     handleEditProduct(product) {
       this.indexOfProductToEdit = this.groceryList.indexOf(product);
-      this.productToEdit = { ...product };
+      this.productToEdit = {
+        ...product,
+      };
       this.isEditGroceryDialogOpen = true;
     },
 
@@ -224,7 +245,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 ::v-deep {
   thead th {
     background: green;

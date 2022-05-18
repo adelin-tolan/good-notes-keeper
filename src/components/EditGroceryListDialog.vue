@@ -55,6 +55,7 @@
 <script>
 export default {
   name: "EditGroceryListDialog",
+
   props: {
     grocery: {
       type: Object,

@@ -49,11 +49,11 @@ const i18n = new VueI18n({
 
 export const bus = new Vue();
 
-const newLocal = {
+const app = {
   vuetify,
   router,
   i18n,
   pinia,
   render: (h) => h(App),
 };
-new Vue(newLocal).$mount("#app");
+new Vue(app).$mount("#app");
