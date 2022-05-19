@@ -76,12 +76,10 @@
 </template>
 
 <script>
-import { isHomeRouteMixin } from "../mixins/isHomeRouteMixin";
 import { menuItemsList } from "../utils/menuItems";
 
 export default {
   name: "TheMenu",
-  mixins: [isHomeRouteMixin],
   data() {
     return {
       isDrawerOpen: false,
@@ -92,6 +90,9 @@ export default {
   computed: {
     activeMenuItem(itemPath) {
       return this.$route.path.startsWith(itemPath) ? "highlighted" : "";
+    },
+    isHomeRoute() {
+      return this.$route.path === "/";
     },
   },
 
