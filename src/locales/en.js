@@ -27,7 +27,7 @@ export const englishVersion = {
   },
 
   tableHeaders: {
-    product: "Product",
+    grocery: "Grocery",
     quantity: "Quantity",
     unit: "Unit",
     category: "Category",
@@ -44,21 +44,19 @@ export const englishVersion = {
 
   labels: {
     noteImportanceQuestion: "Is this note important?",
-    confirmationQuestion: "Are you sure you bought this product?",
+    confirmationQuestion: "Are you sure you bought this grocery?",
     requirementToAddKeywords: "Add keywors one by one:",
     keywordsAdded: "Keywords added:",
     keywords: "Keywords",
-    product: "Product",
+    grocery: "Grocery",
     quantity: "Quantity",
     unit: "Unit",
     purchased: "Purchased",
   },
 
   rules: {
-    minimumLength:
-      "Minimum length for {fieldName} is {minimumNumber} characters",
-    maximumLength:
-      "Maximum length for {fieldName} is {maximumNumber} characters",
+    minimumLength: "Minimum length for {fieldName} is {minimumNumber} characters",
+    maximumLength: "Maximum length for {fieldName} is {maximumNumber} characters",
     requirementToChooseName: "You must choose a name from the list",
   },
 

@@ -77,5 +77,7 @@ module.exports = {
       },
     ],
     "vue/max-attributes-per-line": "off",
+    "vue/no-unused-components": "off",
+    "vue/singleline-html-element-content-newline": "off",
   },
 };

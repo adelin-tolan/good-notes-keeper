@@ -8,22 +8,13 @@
         <v-container>
           <v-row class="mt-4">
             <v-col cols="12" md="4" sm="6">
-              <v-text-field
-                v-model="name"
-                :label="$t('tableHeaders.product')"
-              />
+              <v-text-field v-model="name" :label="$t('tableHeaders.grocery')" />
             </v-col>
             <v-col cols="12" md="4" sm="6">
-              <v-text-field
-                v-model="quantity"
-                :label="$t('tableHeaders.quantity')"
-              />
+              <v-text-field v-model="quantity" :label="$t('tableHeaders.quantity')" />
             </v-col>
             <v-col cols="12" md="4" sm="6">
-              <v-text-field
-                v-model="unitMeasure"
-                :label="$t('tableHeaders.unit')"
-              />
+              <v-text-field v-model="unitMeasure" :label="$t('tableHeaders.unit')" />
             </v-col>
             <v-col cols="12" md="4" sm="6" />
             <v-col cols="12" md="4" sm="6" />
@@ -85,9 +76,9 @@ export default {
   },
   data() {
     return {
-      name: "",
-      quantity: "",
-      unitMeasure: "",
+      name: null,
+      quantity: null,
+      unitMeasure: null,
     };
   },
 
@@ -116,7 +107,7 @@ export default {
     handleClickOnSaveButton() {
       this.$emit("on-save-button-click", {
         name: this.name,
-        quantity: this.quantity,
+        quantity: +this.quantity,
         unitMeasure: this.unitMeasure,
       });
     },

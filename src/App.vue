@@ -52,12 +52,6 @@ export default {
       }, 5000);
     });
   },
-
-  mounted() {
-    console.log(
-      `Working on ${process.env.VUE_APP_MODE} mode. URL: ${process.env.VUE_APP_SERVICE_URL}`
-    );
-  },
 };
 </script>
 
