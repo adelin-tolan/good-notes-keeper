@@ -1,12 +1,13 @@
 <template>
   <v-select
+    class="mb-2"
     clearable
+    dense
     hide-details="auto"
     item-text="text"
     item-value="value"
     :items="purchasedFieldFilterOptions"
     placeholder="Yes/No"
-    solo
     @change="handleFilterChange($event)"
   />
 </template>
